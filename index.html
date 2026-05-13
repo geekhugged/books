@@ -31,6 +31,8 @@
       --dev-dim:    rgba(14,165,233,.12);
       --mgmt:       #e11d48;
       --mgmt-dim:   rgba(225,29,72,.12);
+      --culture:    #2dd4bf;
+      --culture-dim:rgba(45,212,191,.12);
       --r:          16px;
       --shadow-sm:  0 2px 8px rgba(0,0,0,.4);
       --shadow-md:  0 8px 32px rgba(0,0,0,.6);
@@ -186,7 +188,8 @@
     .tab.on-health { background: var(--health-dim); color: var(--health); }
     .tab.on-comm   { background: var(--comm-dim);   color: var(--comm); }
     .tab.on-dev    { background: var(--dev-dim);    color: var(--dev); }
-    .tab.on-mgmt   { background: var(--mgmt-dim);   color: var(--mgmt); }
+    .tab.on-mgmt    { background: var(--mgmt-dim);    color: var(--mgmt); }
+    .tab.on-culture { background: var(--culture-dim); color: var(--culture); }
     .filter-count {
       font-size: .78rem;
       color: var(--text-3);
@@ -223,7 +226,8 @@
     .section-icon.health { background: var(--health-dim); }
     .section-icon.comm   { background: var(--comm-dim); }
     .section-icon.dev    { background: var(--dev-dim); }
-    .section-icon.mgmt   { background: var(--mgmt-dim); }
+    .section-icon.mgmt    { background: var(--mgmt-dim); }
+    .section-icon.culture { background: var(--culture-dim); }
     .section-title {
       font-size: .8rem;
       font-weight: 700;
@@ -234,7 +238,8 @@
     .section-title.health { color: var(--health); }
     .section-title.comm   { color: var(--comm); }
     .section-title.dev    { color: var(--dev); }
-    .section-title.mgmt   { color: var(--mgmt); }
+    .section-title.mgmt    { color: var(--mgmt); }
+    .section-title.culture { color: var(--culture); }
     .section-line {
       flex: 1;
       height: 1px;
@@ -548,6 +553,11 @@
       color: var(--mgmt);
       border-color: rgba(225,29,72,.3);
     }
+    .cat-badge.culture {
+      background: var(--culture-dim);
+      color: var(--culture);
+      border-color: rgba(45,212,191,.3);
+    }
     .modal-tagline {
       font-family: 'Playfair Display', serif;
       font-style: italic;
@@ -782,15 +792,15 @@
     <p class="hero-sub">Chapter-by-chapter breakdowns of 7 books that changed how I think about behaviour and wellbeing.</p>
     <div class="hero-stats">
       <div class="stat">
-        <span class="stat-num">21</span>
+        <span class="stat-num">23</span>
         <span class="stat-label">Books</span>
       </div>
       <div class="stat">
-        <span class="stat-num">222</span>
+        <span class="stat-num">239</span>
         <span class="stat-label">Chapters</span>
       </div>
       <div class="stat">
-        <span class="stat-num">5</span>
+        <span class="stat-num">6</span>
         <span class="stat-label">Categories</span>
       </div>
     </div>
@@ -806,6 +816,7 @@
     <button class="tab"           onclick="filter('comm', this)">Communication</button>
     <button class="tab"           onclick="filter('dev', this)">Development</button>
     <button class="tab"           onclick="filter('mgmt', this)">Management</button>
+    <button class="tab"           onclick="filter('culture', this)">Culture</button>
   </div>
   <p class="filter-count" id="count-label"></p>
 </div>
@@ -1772,6 +1783,92 @@ const BOOKS = [
         k:'Оценивай качество решений, а не результат — результат зависит от многих факторов, кроме менеджера.' },
     ]
   },
+
+  /* ── CULTURE ─────────────────────────────────────────────── */
+  {
+    id: 'culture-code', category: 'culture',
+    title: 'The Culture Code', author: 'Daniel Coyle',
+    tagline: 'The secrets of highly successful groups.',
+    emoji: '🔥',
+    grad: 'linear-gradient(135deg, #2dd4bf 0%, #0d9488 50%, #134e4a 100%)',
+    insight: 'Great group cultures are not born — they are built through three specific, learnable skills: building safety, sharing vulnerability, and establishing purpose. The best teams in the world do all three, consistently.',
+    chapters: [
+      { n:'Intro', t:'When Two Plus Two Equals Ten',
+        s:'Coyle opens with a striking experiment: groups of kindergarteners consistently outperform MBA students on a tower-building challenge. The reason is not intelligence — it\'s the children\'s willingness to experiment, fail visibly, and iterate without ego. Great cultures unlock this collaborative energy deliberately. The rest of the book reverse-engineers how.',
+        k:'Group performance is not the sum of individual talent — it\'s the product of how people interact.' },
+      { n:'Ch 1', t:'The Good Apples',
+        s:'Researcher Will Felps placed actors into groups to test the impact of a single bad actor (slacker, jerk, depressive). One actor — the "good apple" — transformed toxic groups by asking simple questions and showing genuine curiosity. His behaviour was contagious. Culture is not determined by the majority; it is shaped disproportionately by a small number of highly connected individuals.',
+        k:'One person acting with consistent warmth and curiosity can shift an entire group\'s culture.' },
+      { n:'Ch 2', t:'The Billion-Dollar Day When Nothing Went Wrong',
+        s:'Coyle visits Zappos during their famously intensive onboarding programme. New hires are offered $2,000 to quit after the first week — most don\'t take it, and those who stay become deeply committed. The offer isn\'t about the money; it\'s a belonging signal. Zappos invests more in creating belonging cues than most companies invest in their entire HR function.',
+        k:'Belonging is built through consistent signals of safety, inclusion, and genuine investment in people.' },
+      { n:'Ch 3', t:'How to Build Belonging',
+        s:'The three core belonging cues that wire the brain for safety: energy (you give me your attention), individualisation (you see me as a unique person), and future orientation (you include me in the future). These cues are most powerful when delivered consistently by leaders. A single moment of authentic connection can rewrite a team member\'s sense of belonging.',
+        k:'Energy + Individualisation + Future orientation = the three signals that create belonging.' },
+      { n:'Ch 4', t:'How to Design for Belonging',
+        s:'Physical space, meeting rituals, and the way information flows all send powerful belonging signals before a word is spoken. IDEO\'s offices are designed for collision and visibility. Navy SEAL teams eat together. Pixar\'s central atrium forces cross-functional contact. The best cultures treat physical design as a communication tool, not an afterthought.',
+        k:'Culture lives in the physical space and daily rituals — design both with belonging in mind.' },
+      { n:'Ch 5', t:'The Vulnerability Loop',
+        s:'High-performing teams at places like Pixar and Navy SEAL units share a paradox: the more vulnerably someone admits uncertainty or mistakes, the more trust is generated. The vulnerability loop — I am vulnerable → you are safe to be vulnerable → deeper trust forms — is the engine of psychological safety. It must be modelled by leaders first and consistently.',
+        k:'Vulnerability creates trust — but only when the leader goes first and makes it genuinely safe.' },
+      { n:'Ch 6', t:'How to Create Cooperation in Groups',
+        s:'A simple experiment: groups that received a thank-you card from a manager before calling donors raised significantly more money. The card didn\'t convey information — it signalled that the work mattered and the person was seen. Small, sincere expressions of gratitude and noticing are among the highest-leverage investments a leader can make in team performance.',
+        k:'Small, sincere expressions of "I see you and your work matters" unlock outsized performance.' },
+      { n:'Ch 7', t:'How to Build Trust with the Brigade',
+        s:'General Stanley McChrystal transformed the Joint Special Operations Command from a siloed hierarchy into a networked organism by sharing intelligence across all units — breaking every classified-information norm. The principle: sharing sensitive information is the highest possible signal of trust. Cultures built on information-hoarding are cultures built on distrust.',
+        k:'Share information you don\'t have to share — it is the most powerful trust signal available to a leader.' },
+      { n:'Ch 8', t:'The Crown Jewels: Establishing Purpose',
+        s:'Johnson & Johnson\'s response to the 1982 Tylenol poisoning — pulling $100 million of product with zero hesitation — was possible because their Credo had been internalised as a genuine operating principle, not a poster on the wall. Purpose works only when it is specific, lived, and clearly prioritised over short-term profit in the moments that matter most.',
+        k:'Purpose only functions as a cultural force when it has been tested and held under pressure.' },
+      { n:'Ch 9', t:'How to Lead for Proficiency',
+        s:'Cultures built for execution and reliability (military units, airline crews, hospital teams) need high-clarity signalling: clear priorities, explicit norms, and repeated catchphrases that encode the culture\'s values. Coyle calls these "HSE" — high-standard expressions. The best operational cultures create a shared language that makes the right behaviour the obvious behaviour.',
+        k:'Create shared language that encodes your values — culture lives in catchphrases, not mission statements.' },
+      { n:'Ch 10', t:'How to Lead for Creativity',
+        s:'Cultures built for creativity (Pixar, IDEO, the best startups) need different signals: permission to fail visibly, abundant candid feedback, and leaders who frame problems rather than dictate solutions. Ed Catmull\'s Pixar model — the Braintrust, the notes process — systematically protects creative work from premature convergence and hierarchy.',
+        k:'Creative cultures need permission to fail visibly and leaders who ask questions instead of giving answers.' },
+    ]
+  },
+
+  {
+    id: 'culture-map', category: 'culture',
+    title: 'The Culture Map', author: 'Erin Meyer',
+    tagline: 'Breaking through the invisible boundaries of global business.',
+    emoji: '🗺️',
+    grad: 'linear-gradient(135deg, #5eead4 0%, #14b8a6 50%, #0f766e 100%)',
+    insight: 'What seems like a personality conflict or a competence problem is often a cultural collision. The Culture Map gives leaders eight precise scales to decode why smart, well-intentioned people from different cultures repeatedly misunderstand each other.',
+    chapters: [
+      { n:'Intro', t:'Navigating the Cultural Minefield',
+        s:'Meyer opens with a story of a Danish manager deeply offended by an American colleague\'s effusive praise — which the American intended sincerely. Neither was wrong; both were operating from their cultural defaults. The book\'s thesis: cultural misunderstandings are not exceptions — they are inevitable when you don\'t have a map. The map has eight dimensions.',
+        k:'Cultural misreads are not personality problems — they are navigation failures. Get a map.' },
+      { n:'Ch 1', t:'Communicating: Low-Context vs. High-Context',
+        s:'Low-context cultures (USA, Australia, Netherlands) communicate explicitly — if it matters, say it clearly and directly. High-context cultures (Japan, China, Arab world, France) rely heavily on implicit cues, shared understanding, and what is not said. A low-context person in a high-context meeting hears the words; they miss the actual message. A high-context person in a low-context meeting feels condescended to by over-explanation.',
+        k:'In high-context cultures, what is not said often matters more than what is — learn to read the silence.' },
+      { n:'Ch 2', t:'Evaluating: Direct vs. Indirect Negative Feedback',
+        s:'This scale is the most counterintuitive in the book. The Netherlands — one of the lowest-context communicators — gives the most direct negative feedback. France — high-context in communication — gives feedback with cutting directness. The scales are independent. Meyer maps the gap between how feedback is given and how it is received, and shows how a Dutch manager can inadvertently devastate a French colleague, or a French manager confuse a British one.',
+        k:'Feedback norms are entirely independent of communication norms — never assume they travel together.' },
+      { n:'Ch 3', t:'Persuading: Principles-First vs. Applications-First',
+        s:'French, German, and Italian cultures build arguments from first principles — they establish the theoretical framework before stating the conclusion. American and British cultures lead with the conclusion and add supporting evidence later. In a cross-cultural meeting, the principles-first speaker sounds evasive to the applications-first listener; the applications-first speaker sounds shallow to the principles-first listener.',
+        k:'Know which style your audience expects — conclusion first or theory first — then adapt accordingly.' },
+      { n:'Ch 4', t:'Leading: Egalitarian vs. Hierarchical',
+        s:'In egalitarian cultures (Denmark, Sweden, Netherlands), the boss is "first among equals" — accessible, informal, and expected to listen. In hierarchical cultures (Japan, China, Russia, many Arab and African countries), the leader is clearly above and directs. A Danish manager\'s casual "what do you think?" reads as genuine invitation in Copenhagen and as a dangerous test in Seoul. Hierarchy is not about respect; it is about the expected flow of communication.',
+        k:'Leadership style must match the culture\'s hierarchy expectations — egalitarian in Tokyo reads as weak.' },
+      { n:'Ch 5', t:'Deciding: Consensual vs. Top-Down',
+        s:'Germany makes decisions slowly through broad consensus but implements them fast and reliably. America makes decisions quickly at the top but revisits them constantly. Japan makes decisions extremely slowly (nemawashi — root-binding consensus) but executes with remarkable speed and fidelity. Understanding the decision-making style prevents the biggest cross-cultural frustration: being surprised that a "yes" wasn\'t actually a commitment.',
+        k:'A decision made quickly in one culture may be a conversation opener in another — confirm what "yes" actually means.' },
+      { n:'Ch 6', t:'Trusting: Task-Based vs. Relationship-Based',
+        s:'In task-based trust cultures (USA, Germany, Australia), trust is built through professional reliability — deliver what you promise and trust is established quickly. In relationship-based trust cultures (China, Brazil, Saudi Arabia, most of Africa), trust is built through personal relationship — shared meals, personal conversations, time spent together — and cannot be shortcut. A German who skips lunch to work through a meeting with a Chinese partner is systematically destroying the trust they need to close the deal.',
+        k:'In relationship-based cultures, the meeting before the meeting is where the real business happens.' },
+      { n:'Ch 7', t:'Disagreeing: Confrontational vs. Avoids Confrontation',
+        s:'French, Israeli, and Dutch cultures view open, vigorous disagreement as a sign of intellectual engagement and respect — arguing with your boss means you take the work seriously. Japanese, Thai, and Indonesian cultures see open confrontation as a breakdown of relationship and a loss of face for both parties. A French manager who invites debate terrifies their Thai team; a Japanese manager who never disagrees baffles their Israeli colleagues.',
+        k:'Open disagreement can signal respect or disrespect depending on the culture — know which you\'re in.' },
+      { n:'Ch 8', t:'Scheduling: Linear-Time vs. Flexible-Time',
+        s:'Linear-time cultures (Germany, Japan, Switzerland, Scandinavia) treat schedules as commitments: late is rude, agendas are followed, one thing happens at a time. Flexible-time cultures (India, Middle East, most of Africa and Latin America) treat schedules as approximations: adaptability is a virtue, relationships take priority over agendas, and doing multiple things simultaneously shows energy. Neither is superior — both are coherent value systems.',
+        k:'Lateness and schedule flexibility are not disrespect — in many cultures they signal healthy relationship priority.' },
+      { n:'Concl.', t:'Putting the Map to Work',
+        s:'Meyer closes with the principle of cultural relativity: there is no universal "best" position on any scale. The effective global leader does not simply move their own position — they develop the cognitive flexibility to switch styles deliberately based on who they are working with. The goal is not to abandon your own culture but to expand your range and read others\' with precision and without judgement.',
+        k:'The goal is not to change who you are — it is to expand your range and read others without judgement.' },
+    ]
+  },
 ];
 
 // ── State ──────────────────────────────────────────────────
@@ -1780,7 +1877,7 @@ let activeFilter = 'all';
 function filter(cat, btn) {
   activeFilter = cat;
   document.querySelectorAll('.tab').forEach(b => { b.className = 'tab'; });
-  const cls = { all: 'on-all', habits: 'on-habits', health: 'on-health', comm: 'on-comm', dev: 'on-dev', mgmt: 'on-mgmt' };
+  const cls = { all: 'on-all', habits: 'on-habits', health: 'on-health', comm: 'on-comm', dev: 'on-dev', mgmt: 'on-mgmt', culture: 'on-culture' };
   btn.className = `tab ${cls[cat]}`;
   render();
 }
@@ -1791,12 +1888,14 @@ function render() {
   const health = BOOKS.filter(b => b.category === 'health');
   const comm   = BOOKS.filter(b => b.category === 'comm');
   const dev    = BOOKS.filter(b => b.category === 'dev');
-  const mgmt   = BOOKS.filter(b => b.category === 'mgmt');
-  const showHa = activeFilter === 'all' || activeFilter === 'habits';
-  const showHe = activeFilter === 'all' || activeFilter === 'health';
-  const showCo = activeFilter === 'all' || activeFilter === 'comm';
-  const showDe = activeFilter === 'all' || activeFilter === 'dev';
-  const showMg = activeFilter === 'all' || activeFilter === 'mgmt';
+  const mgmt    = BOOKS.filter(b => b.category === 'mgmt');
+  const culture = BOOKS.filter(b => b.category === 'culture');
+  const showHa  = activeFilter === 'all' || activeFilter === 'habits';
+  const showHe  = activeFilter === 'all' || activeFilter === 'health';
+  const showCo  = activeFilter === 'all' || activeFilter === 'comm';
+  const showDe  = activeFilter === 'all' || activeFilter === 'dev';
+  const showMg  = activeFilter === 'all' || activeFilter === 'mgmt';
+  const showCu  = activeFilter === 'all' || activeFilter === 'culture';
 
   const visible = BOOKS.filter(b => activeFilter === 'all' || b.category === activeFilter);
   const totalCh = visible.reduce((s, b) => s + b.chapters.length, 0);
@@ -1808,7 +1907,8 @@ function render() {
   if (showHe) html += section('health', '🌿', 'Health', health);
   if (showCo) html += section('comm',   '🗣️', 'Communication', comm);
   if (showDe) html += section('dev',    '🚀', 'Development', dev);
-  if (showMg) html += section('mgmt',  '⚔️', 'Management', mgmt);
+  if (showMg) html += section('mgmt',    '⚔️', 'Management', mgmt);
+  if (showCu) html += section('culture', '🌐', 'Culture',    culture);
   document.getElementById('main').innerHTML = html;
 }
 
@@ -1825,7 +1925,7 @@ function section(cat, emoji, label, books) {
 }
 
 function card(b) {
-  const accentMap = { habits: 'var(--habits)', health: 'var(--health)', comm: 'var(--comm)', dev: 'var(--dev)', mgmt: 'var(--mgmt)' };
+  const accentMap = { habits: 'var(--habits)', health: 'var(--health)', comm: 'var(--comm)', dev: 'var(--dev)', mgmt: 'var(--mgmt)', culture: 'var(--culture)' };
   const accent = accentMap[b.category] || 'var(--blue)';
   return `
     <div class="book-card" style="--card-accent:${accent}" onclick="openBook('${b.id}')">
@@ -1853,10 +1953,10 @@ function card(b) {
 function openBook(id) {
   const b = BOOKS.find(x => x.id === id);
   if (!b) return;
-  const accentMap = { habits: 'var(--habits)', health: 'var(--health)', comm: 'var(--comm)', dev: 'var(--dev)', mgmt: 'var(--mgmt)' };
+  const accentMap = { habits: 'var(--habits)', health: 'var(--health)', comm: 'var(--comm)', dev: 'var(--dev)', mgmt: 'var(--mgmt)', culture: 'var(--culture)' };
   const accent = accentMap[b.category] || 'var(--blue)';
-  const bgMap  = { habits: 'rgba(245,158,11,.07)',  health: 'rgba(16,185,129,.07)',  comm: 'rgba(167,139,250,.07)',  dev: 'rgba(14,165,233,.07)',  mgmt: 'rgba(225,29,72,.07)' };
-  const bdMap  = { habits: 'rgba(245,158,11,.25)',  health: 'rgba(16,185,129,.25)',  comm: 'rgba(167,139,250,.25)',  dev: 'rgba(14,165,233,.25)',  mgmt: 'rgba(225,29,72,.25)' };
+  const bgMap  = { habits: 'rgba(245,158,11,.07)',  health: 'rgba(16,185,129,.07)',  comm: 'rgba(167,139,250,.07)',  dev: 'rgba(14,165,233,.07)',  mgmt: 'rgba(225,29,72,.07)',  culture: 'rgba(45,212,191,.07)' };
+  const bdMap  = { habits: 'rgba(245,158,11,.25)',  health: 'rgba(16,185,129,.25)',  comm: 'rgba(167,139,250,.25)',  dev: 'rgba(14,165,233,.25)',  mgmt: 'rgba(225,29,72,.25)',  culture: 'rgba(45,212,191,.25)' };
   const insightBg     = bgMap[b.category]  || 'rgba(59,130,246,.07)';
   const insightBorder = bdMap[b.category]  || 'rgba(59,130,246,.25)';
 
