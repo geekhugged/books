@@ -25,6 +25,8 @@
       --health-dim: rgba(16,185,129,.12);
       --blue:       #3b82f6;
       --blue-dim:   rgba(59,130,246,.12);
+      --comm:       #a78bfa;
+      --comm-dim:   rgba(167,139,250,.12);
       --r:          16px;
       --shadow-sm:  0 2px 8px rgba(0,0,0,.4);
       --shadow-md:  0 8px 32px rgba(0,0,0,.6);
@@ -178,6 +180,7 @@
     .tab.on-all    { background: var(--surface3); color: var(--text); }
     .tab.on-habits { background: var(--habits-dim); color: var(--habits); }
     .tab.on-health { background: var(--health-dim); color: var(--health); }
+    .tab.on-comm   { background: var(--comm-dim);   color: var(--comm); }
     .filter-count {
       font-size: .78rem;
       color: var(--text-3);
@@ -212,6 +215,7 @@
     }
     .section-icon.habits { background: var(--habits-dim); }
     .section-icon.health { background: var(--health-dim); }
+    .section-icon.comm   { background: var(--comm-dim); }
     .section-title {
       font-size: .8rem;
       font-weight: 700;
@@ -220,6 +224,7 @@
     }
     .section-title.habits { color: var(--habits); }
     .section-title.health { color: var(--health); }
+    .section-title.comm   { color: var(--comm); }
     .section-line {
       flex: 1;
       height: 1px;
@@ -518,6 +523,11 @@
       color: var(--health);
       border-color: rgba(16,185,129,.3);
     }
+    .cat-badge.comm {
+      background: var(--comm-dim);
+      color: var(--comm);
+      border-color: rgba(167,139,250,.3);
+    }
     .modal-tagline {
       font-family: 'Playfair Display', serif;
       font-style: italic;
@@ -752,15 +762,15 @@
     <p class="hero-sub">Chapter-by-chapter breakdowns of 7 books that changed how I think about behaviour and wellbeing.</p>
     <div class="hero-stats">
       <div class="stat">
-        <span class="stat-num">7</span>
+        <span class="stat-num">10</span>
         <span class="stat-label">Books</span>
       </div>
       <div class="stat">
-        <span class="stat-num">95</span>
+        <span class="stat-num">127</span>
         <span class="stat-label">Chapters</span>
       </div>
       <div class="stat">
-        <span class="stat-num">2</span>
+        <span class="stat-num">3</span>
         <span class="stat-label">Categories</span>
       </div>
     </div>
@@ -773,6 +783,7 @@
     <button class="tab on-all"    onclick="filter('all', this)">All</button>
     <button class="tab"           onclick="filter('habits', this)">Habits</button>
     <button class="tab"           onclick="filter('health', this)">Health</button>
+    <button class="tab"           onclick="filter('comm', this)">Communication</button>
   </div>
   <p class="filter-count" id="count-label"></p>
 </div>
@@ -1177,6 +1188,145 @@ const BOOKS = [
         k:'Diverse conditions share a common thread: vagal dysregulation amenable to direct treatment.' },
     ]
   },
+
+  /* ── COMMUNICATION ───────────────────────────────────────── */
+  {
+    id: 'supercommunicators', category: 'comm',
+    title: 'Supercommunicators', author: 'Charles Duhigg',
+    tagline: 'How to unlock the secret language of connection.',
+    emoji: '🔗',
+    grad: 'linear-gradient(135deg, #a78bfa 0%, #7c3aed 50%, #4c1d95 100%)',
+    insight: 'The best communicators are not the most eloquent — they are the most skilled at identifying what kind of conversation they are in and matching the emotional register of the other person.',
+    chapters: [
+      { n:'Intro', t:'The Matching Principle',
+        s:'Duhigg opens with a striking finding from FBI hostage negotiations and couples therapy alike: conversations succeed when both parties are engaged in the same type of conversation at the same time. When one person wants to make a decision and the other wants emotional support, they talk past each other — regardless of how much they care.',
+        k:'Conversations fail when people are in different types of conversations without realising it.' },
+      { n:'Ch 1', t:'Every Conversation Has Multiple Goals',
+        s:'We speak for practical reasons (to decide, solve, or plan), emotional reasons (to be heard, validated, or comforted), and social reasons (to connect, belong, or define our relationship). Most conversations involve all three layers simultaneously. Supercommunicators identify which layer needs attention in each moment.',
+        k:'Listen for which layer — practical, emotional, or social — needs attention right now.' },
+      { n:'Ch 2', t:'The Three Kinds of Conversations',
+        s:'Duhigg maps all conversations into three types: "What is this really about?" (decision-making and problem-solving), "How do we feel?" (emotional experiences and needs), and "Who are we to each other?" (identity, values, and relationship). Most communication failures come from mismatching types, not from lack of intelligence or goodwill.',
+        k:'Name the type of conversation you are in — then confirm the other person is in the same one.' },
+      { n:'Ch 3', t:'How to Ask Deep Questions',
+        s:'Shallow questions ("How was your day?") keep people at a distance. Deep questions invite genuine vulnerability and signal authentic curiosity about the other person\'s inner world. Research shows that people who ask more questions — especially follow-up questions — are liked more and build trust faster, even with strangers.',
+        k:'Ask one more follow-up question than feels natural — it signals you are genuinely present.' },
+      { n:'Ch 4', t:'Practical Empathy',
+        s:'Empathy is not about feeling what someone else feels — that is emotional contagion and it often overwhelms. Practical empathy is about accurately understanding what another person is experiencing and communicating that understanding back to them clearly. The goal is comprehension, not merger. This distinction transforms empathy from a passive feeling into an active skill.',
+        k:'Empathy is not feeling what they feel — it\'s understanding what they feel and showing it.' },
+      { n:'Ch 5', t:'How to Hear What People Don\'t Say',
+        s:'Skilled communicators listen for what is conspicuously absent as much as what is said. Tone, pace, pauses, and word choice all carry emotional signal. When someone minimises ("it\'s fine, really") or deflects, that is often the most important message in the conversation. Reflecting back what you observe — not interpret — opens the door.',
+        k:'The most important thing in a conversation is often what isn\'t being said directly.' },
+      { n:'Ch 6', t:'Looping for Understanding',
+        s:'The "looping" technique — asking a question, listening carefully, reflecting back what you heard, then asking if you got it right — is one of the most powerful tools in communication. It demonstrates attention, corrects misunderstanding in real time, and makes the speaker feel genuinely heard, which is the precondition for genuine influence.',
+        k:'Ask → Listen → Reflect back → Confirm. Repeat until they say "yes, exactly."' },
+      { n:'Ch 7', t:'Hard and Meaningful Conversations',
+        s:'Conversations about identity, values, and deeply held beliefs are the hardest because any disagreement can feel like a personal attack. The key is separating the idea from the person. Supercommunicators ask "How did you come to believe that?" rather than "Why do you believe that?" — the first invites a story; the second invites a defence.',
+        k:'Ask how someone came to believe something — you get a story, not a debate.' },
+      { n:'Ch 8', t:'Who Are We to Each Other?',
+        s:'Social conversations establish and reaffirm the nature of a relationship — its rules, its values, its power dynamics. Understanding who someone believes they are (their identity) before attempting to persuade them is not manipulation — it is respect. People change their behaviour when they see it as consistent with who they are, not as a betrayal of it.',
+        k:'Understand someone\'s identity before trying to change their mind.' },
+      { n:'Ch 9', t:'Neural Entrainment: The Science of Connection',
+        s:'Neuroscience shows that during genuine connection, the brain patterns of two people begin to synchronise — a phenomenon called neural entrainment. This synchrony predicts trust, cooperation, and mutual understanding better than any verbal metric. Supercommunicators create the conditions for this synchrony through attention, matching, and genuine curiosity.',
+        k:'Real connection is physiological — brains actually sync when communication succeeds.' },
+      { n:'Concl.', t:'Anyone Can Become a Supercommunicator',
+        s:'Supercommunicators are not born — they are made through deliberate practice. The core habits: identify the type of conversation, ask deep questions, practice practical empathy, loop for understanding, and pay attention to what isn\'t being said. These are learnable skills that compound over time, transforming every relationship.',
+        k:'Communication is a skill, not a talent — and every conversation is practice.' },
+    ]
+  },
+
+  {
+    id: 'never-split', category: 'comm',
+    title: 'Never Split the Difference', author: 'Chris Voss',
+    tagline: 'Negotiating as if your life depended on it.',
+    emoji: '🤝',
+    grad: 'linear-gradient(135deg, #8b5cf6 0%, #6d28d9 50%, #3b0764 100%)',
+    insight: 'Negotiation is not about logic or compromise — it is about understanding and redirecting the other side\'s emotional state. The best negotiators don\'t split the difference; they change the game entirely.',
+    chapters: [
+      { n:'Intro', t:'The New Rules',
+        s:'Former FBI lead hostage negotiator Chris Voss argues that the rational-actor model of negotiation (Harvard\'s Getting to Yes) ignores the overwhelming role of emotion and irrationality. Real-world high-stakes negotiation — kidnappings, hostage crises, terrorist demands — proved that empathy, calibrated questions, and emotional intelligence outperform logic every time.',
+        k:'Negotiation is emotional, not rational — treat it accordingly and you gain an enormous edge.' },
+      { n:'Ch 1', t:'Be a Mirror',
+        s:'Mirroring — repeating the last one to three words the other person said, with a slightly upward inflection — is one of the simplest and most powerful rapport-building tools. It signals that you are listening, invites the other person to elaborate, and creates a sense of being understood without requiring you to reveal your own position or agenda.',
+        k:'Repeat the last 3 words. It costs nothing and builds instant rapport.' },
+      { n:'Ch 2', t:'Don\'t Feel Their Pain, Label It',
+        s:'Tactical empathy is not sympathy — it is identifying and articulating the emotion the other person is experiencing. Labelling ("It seems like you\'re frustrated," "It sounds like this has been really difficult") defuses negative emotions by bringing them into conscious awareness. Crucially: label negatives to defuse them, reinforce positives to amplify them.',
+        k:'"It seems like..." defuses emotion by naming it — try it before any difficult conversation.' },
+      { n:'Ch 3', t:'Beware "Yes" — Master "No"',
+        s:'"Yes" is often a fake commitment — people say it to escape the conversation. "No" is actually the beginning of real negotiation: it means "I\'m not comfortable yet" or "I need more information." Voss shows how to make it safe for people to say no, which paradoxically creates more genuine cooperation than pushing for yes.',
+        k:'Getting to "No" creates safety and starts real negotiation — stop chasing "Yes."' },
+      { n:'Ch 4', t:'Trigger the Two Words That Transform Negotiation',
+        s:'The goal is not to get the other party to say "You\'re right" (a polite dismissal) but "That\'s right" — the signal of genuine alignment. "That\'s right" emerges when you accurately summarise someone\'s position, worldview, and feelings back to them. It means you have understood them deeply enough that they feel truly heard.',
+        k:'"That\'s right" signals genuine alignment — build toward it with accurate summaries.' },
+      { n:'Ch 5', t:'Bend Their Reality',
+        s:'People make decisions based on perceived value, not absolute value. Anchoring — making the first extreme offer — sets the reference point for the entire negotiation. Deadlines, scarcity, and loss framing ("What do you lose if this falls through?") exploit cognitive biases powerfully. Odd-number offers signal careful calculation and are taken more seriously.',
+        k:'Frame your offer around what the other side loses by not accepting — loss aversion is your tool.' },
+      { n:'Ch 6', t:'Create the Illusion of Control',
+        s:'Calibrated questions — open-ended questions starting with "How" or "What" — are the most powerful tool in a negotiator\'s arsenal. They give the other party the sense of being in control while actually guiding the conversation toward your objectives. "How am I supposed to do that?" forces the other side to solve your problem for you.',
+        k:'"How" and "What" questions give control while gathering information — use them relentlessly.' },
+      { n:'Ch 7', t:'Guarantee Execution',
+        s:'Reaching an agreement is not the same as ensuring it gets implemented. The Rule of Three: get the other side to commit to the same thing three times in three different ways to expose deception. Read body language and paralanguage — incongruent signals between words and tone indicate the agreement is not genuine.',
+        k:'Commit → Confirm → Confirm again in a different form. Inconsistency reveals hidden resistance.' },
+      { n:'Ch 8', t:'Bargain Hard',
+        s:'The Ackerman model: set your target price, open at 65% of it, then move to 85%, 95%, and 100% — with each concession getting smaller, signalling you are approaching your limit. The final offer should include a non-round number (e.g. $37,893) and a non-monetary throw-in, which signals the number was calculated carefully.',
+        k:'Make smaller and smaller concessions — the pattern signals you are at your real limit.' },
+      { n:'Ch 9', t:'Find the Black Swan',
+        s:'Black Swans are unknown unknowns — hidden pieces of information that, when discovered, can completely transform a negotiation. The other side always has motivations, constraints, and pressures you don\'t know about. Listening for what doesn\'t fit, what seems irrational, or what is conspicuously avoided reveals Black Swans.',
+        k:'What seems irrational is usually a clue — keep asking "why" until the hidden constraint appears.' },
+      { n:'Appx.', t:'Prepare a Negotiation One Sheet',
+        s:'Voss provides a one-page preparation framework: define your goals (optimistic, realistic, worst case), summarise the situation from the other side\'s perspective, identify the labels and calibrated questions you will use, define your non-monetary offers, and set your Ackerman range in advance. Preparation is where negotiation is won or lost.',
+        k:'Prepare every negotiation in writing before it starts — improvisation is the amateur\'s strategy.' },
+    ]
+  },
+
+  {
+    id: 'just-listen', category: 'comm',
+    title: 'Just Listen', author: 'Mark Goulston',
+    tagline: 'Discover the secret to getting through to absolutely anyone.',
+    emoji: '👂',
+    grad: 'linear-gradient(135deg, #c084fc 0%, #9333ea 50%, #581c87 100%)',
+    insight: 'Getting through to people is not about being more persuasive — it is about making them feel so genuinely heard and understood that their defensiveness drops and they become willing to listen to you.',
+    chapters: [
+      { n:'Intro', t:'Getting Through to Anyone',
+        s:'Psychiatrist and FBI hostage-negotiation trainer Mark Goulston opens with a paradox: the harder you push to persuade someone, the more they resist. The secret to genuine influence is not better arguments — it is making the other person feel so completely understood that their instinct to defend and resist simply disappears.',
+        k:'The more understood people feel, the more open they become — understanding precedes influence.' },
+      { n:'Ch 1', t:'The Persuasion Cycle',
+        s:'Goulston maps the journey from resistance to action as a six-stage cycle: Resisting → Listening → Considering → Willing to do → Doing → Glad they did. Most people try to skip stages and push directly for action, which triggers resistance. The entire art of communication is moving someone one stage at a time.',
+        k:'Never skip stages — move people one step at a time from resistance toward willing action.' },
+      { n:'Ch 2', t:'From Impossible to Difficult to Easy',
+        s:'The amygdala hijack — when the emotional brain overwhelms the rational brain — makes people temporarily unreachable. Recognising when someone has been hijacked (flushing, clenching, shutting down) is the first skill. The second is knowing how to calm the hijack before attempting any rational communication. Logic does not work on a hijacked brain.',
+        k:'Wait for the amygdala to calm before attempting rational conversation — it\'s biology, not stubbornness.' },
+      { n:'Ch 3', t:'Move Toward the Danger',
+        s:'The instinct when someone is angry or upset is to back away or defend. The counterintuitive move — leaning into the tension, naming what you observe, asking about it directly — almost always de-escalates faster than retreat. Avoidance signals fear; engagement signals confidence and genuine interest.',
+        k:'Move toward discomfort, not away from it — engagement de-escalates more reliably than retreat.' },
+      { n:'Ch 4', t:'Make the Other Person Feel Felt',
+        s:'The deepest human need in communication is not to be agreed with — it is to be felt. When someone feels that you have genuinely registered their emotional experience, their defensiveness dissolves. Goulston\'s technique: "I can only imagine how you must be feeling" followed by a specific, accurate guess at the emotion.',
+        k:'Make people feel felt, not just heard — name the specific emotion they\'re experiencing.' },
+      { n:'Ch 5', t:'Be More Interested Than Interesting',
+        s:'Most people listen to respond, not to understand. They are composing their next point while the other person is still speaking. Genuinely curious listening — in which you have no agenda other than to understand — is so rare that people notice it immediately and are drawn to it. The most magnetic conversationalists are the most attentive listeners.',
+        k:'Listen to understand, not to respond — your next point can wait.' },
+      { n:'Ch 6', t:'Rewire Yourself to Listen',
+        s:'Goulston addresses the neurological habits that make deep listening difficult: the urge to fix, to judge, to compare, to advise, to one-up. These responses feel helpful but communicate "I\'m not that interested in your experience." He provides specific techniques for interrupting these habits in real time during conversations.',
+        k:'Notice your urge to fix or advise — then replace it with one more question instead.' },
+      { n:'Ch 7', t:'Fill Up the Other Person\'s Emotional Tank',
+        s:'People who feel emotionally depleted — unseen, unappreciated, unacknowledged — cannot give their best. Goulston introduces the "emotional tank" metaphor: every genuine expression of appreciation, gratitude, recognition, or curiosity fills the tank. Criticism, dismissal, and distraction drain it. Full tanks produce cooperation; empty tanks produce conflict.',
+        k:'Acknowledge before you ask — you can\'t draw from an empty emotional tank.' },
+      { n:'Ch 8', t:'The Power of "Hmmm"',
+        s:'The smallest, most genuine signals of attention — "hmmm," "tell me more," "go on" — are disproportionately powerful. They communicate that you are present, that what the other person is saying matters, and that you are not rushing toward your own agenda. Silence, used well, is equally powerful — it creates space for the other person to go deeper.',
+        k:'The smallest signals of genuine attention have disproportionate power — use them deliberately.' },
+      { n:'Ch 9', t:'The Stipulation Gambit',
+        s:'When you know someone has a strong objection, raise it yourself before they can. "I know you\'re probably thinking X — and here\'s why that concern is valid..." This pre-empts defensiveness, demonstrates that you understand their perspective, and builds trust. People cannot argue with you when you\'ve already acknowledged their strongest point.',
+        k:'Raise their objection before they do — you disarm the defence before it forms.' },
+      { n:'Ch 10', t:'Reach Anyone in a Crisis',
+        s:'Crisis communication requires a completely different approach: slow down, lower your voice, match their breathing, and ask permission before offering anything ("Would it be okay if I shared something?"). People in crisis are in amygdala hijack — their rational brain is offline. The only goal is to help them feel safe enough to access it again.',
+        k:'In a crisis: slow down, lower your voice, ask permission. Logic comes much, much later.' },
+      { n:'Ch 11', t:'The Empathy Jolt',
+        s:'The empathy jolt is a radical act of vulnerable honesty — sharing a personal experience of failure, fear, or struggle that directly mirrors what the other person is going through. It breaks through walls that rational argument cannot touch. Vulnerability invites vulnerability; authenticity disarms inauthenticity.',
+        k:'Strategic vulnerability — sharing your own struggle — creates connection that argument never can.' },
+      { n:'Ch 12', t:'Say What You Mean Without Being Mean',
+        s:'Assertiveness without aggression requires precise language: state the specific behaviour, describe the specific impact, and make a specific request — never attack character or make sweeping generalisations. "When you interrupt me in meetings, I lose my train of thought and feel dismissed. Could we agree on a different approach?" This is completelydifferent from "You never listen."',
+        k:'Behaviour + Impact + Request — the formula for assertive communication without aggression.' },
+    ]
+  },
 ];
 
 // ── State ──────────────────────────────────────────────────
@@ -1184,10 +1334,9 @@ let activeFilter = 'all';
 
 function filter(cat, btn) {
   activeFilter = cat;
-  document.querySelectorAll('.tab').forEach(b => {
-    b.className = 'tab';
-  });
-  btn.className = cat === 'all' ? 'tab on-all' : cat === 'habits' ? 'tab on-habits' : 'tab on-health';
+  document.querySelectorAll('.tab').forEach(b => { b.className = 'tab'; });
+  const cls = { all: 'on-all', habits: 'on-habits', health: 'on-health', comm: 'on-comm' };
+  btn.className = `tab ${cls[cat]}`;
   render();
 }
 
@@ -1195,18 +1344,20 @@ function filter(cat, btn) {
 function render() {
   const habits = BOOKS.filter(b => b.category === 'habits');
   const health = BOOKS.filter(b => b.category === 'health');
-  const showH  = activeFilter === 'all' || activeFilter === 'habits';
+  const comm   = BOOKS.filter(b => b.category === 'comm');
+  const showHa = activeFilter === 'all' || activeFilter === 'habits';
   const showHe = activeFilter === 'all' || activeFilter === 'health';
+  const showCo = activeFilter === 'all' || activeFilter === 'comm';
 
-  const total = (showH ? habits.length : 0) + (showHe ? health.length : 0);
-  const totalCh = BOOKS.filter(b => activeFilter === 'all' || b.category === activeFilter)
-                       .reduce((s, b) => s + b.chapters.length, 0);
+  const visible = BOOKS.filter(b => activeFilter === 'all' || b.category === activeFilter);
+  const totalCh = visible.reduce((s, b) => s + b.chapters.length, 0);
   document.getElementById('count-label').innerHTML =
-    `Showing <strong>${total} books</strong> · ${totalCh} chapters`;
+    `Showing <strong>${visible.length} books</strong> · ${totalCh} chapters`;
 
   let html = '';
-  if (showH)  html += section('habits', '⚡', 'Habits', habits);
+  if (showHa) html += section('habits', '⚡', 'Habits', habits);
   if (showHe) html += section('health', '🌿', 'Health', health);
+  if (showCo) html += section('comm',   '🗣️', 'Communication', comm);
   document.getElementById('main').innerHTML = html;
 }
 
@@ -1223,7 +1374,8 @@ function section(cat, emoji, label, books) {
 }
 
 function card(b) {
-  const accent = b.category === 'habits' ? 'var(--habits)' : 'var(--health)';
+  const accentMap = { habits: 'var(--habits)', health: 'var(--health)', comm: 'var(--comm)' };
+  const accent = accentMap[b.category] || 'var(--blue)';
   return `
     <div class="book-card" style="--card-accent:${accent}" onclick="openBook('${b.id}')">
       <div class="book-spine"></div>
@@ -1250,9 +1402,12 @@ function card(b) {
 function openBook(id) {
   const b = BOOKS.find(x => x.id === id);
   if (!b) return;
-  const accent = b.category === 'habits' ? 'var(--habits)' : 'var(--health)';
-  const insightBg = b.category === 'habits' ? 'rgba(245,158,11,.07)' : 'rgba(16,185,129,.07)';
-  const insightBorder = b.category === 'habits' ? 'rgba(245,158,11,.25)' : 'rgba(16,185,129,.25)';
+  const accentMap = { habits: 'var(--habits)', health: 'var(--health)', comm: 'var(--comm)' };
+  const accent = accentMap[b.category] || 'var(--blue)';
+  const bgMap  = { habits: 'rgba(245,158,11,.07)',  health: 'rgba(16,185,129,.07)',  comm: 'rgba(167,139,250,.07)' };
+  const bdMap  = { habits: 'rgba(245,158,11,.25)',  health: 'rgba(16,185,129,.25)',  comm: 'rgba(167,139,250,.25)' };
+  const insightBg     = bgMap[b.category]  || 'rgba(59,130,246,.07)';
+  const insightBorder = bdMap[b.category]  || 'rgba(59,130,246,.25)';
 
   document.getElementById('modal').style.setProperty('--card-accent', accent);
 
