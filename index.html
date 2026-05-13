@@ -1225,7 +1225,7 @@ function section(cat, emoji, label, books) {
 function card(b) {
   const accent = b.category === 'habits' ? 'var(--habits)' : 'var(--health)';
   return `
-    <div class="book-card" style="--card-accent:${accent}" onclick="open('${b.id}')">
+    <div class="book-card" style="--card-accent:${accent}" onclick="openBook('${b.id}')">
       <div class="book-spine"></div>
       <div class="book-cover" style="background:${b.grad}">
         <div class="book-cover-icon">${b.emoji}</div>
@@ -1247,7 +1247,7 @@ function card(b) {
 }
 
 // ── Modal ──────────────────────────────────────────────────
-function open(id) {
+function openBook(id) {
   const b = BOOKS.find(x => x.id === id);
   if (!b) return;
   const accent = b.category === 'habits' ? 'var(--habits)' : 'var(--health)';
