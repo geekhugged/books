@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Summaries — Habits & Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #080c12;
+      --surface:    #0f1520;
+      --surface2:   #16202e;
+      --surface3:   #1c2840;
+      --border:     #1e2d42;
+      --border2:    #243550;
+      --text:       #e8f0fa;
+      --text-2:     #a8b8cc;
+      --text-3:     #5a7090;
+      --habits:     #f59e0b;
+      --habits-dim: rgba(245,158,11,.12);
+      --health:     #10b981;
+      --health-dim: rgba(16,185,129,.12);
+      --blue:       #3b82f6;
+      --blue-dim:   rgba(59,130,246,.12);
+      --r:          16px;
+      --shadow-sm:  0 2px 8px rgba(0,0,0,.4);
+      --shadow-md:  0 8px 32px rgba(0,0,0,.6);
+      --shadow-lg:  0 24px 64px rgba(0,0,0,.8);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    .hero {
+      position: relative;
+      padding: 96px 24px 72px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 0%, rgba(245,158,11,.07) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 60% at 80% 0%, rgba(16,185,129,.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(59,130,246,.05) 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 80%);
+      opacity: .35;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--text-2);
+      margin-bottom: 24px;
+    }
+    .hero-pill span {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 8px var(--blue);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      background: linear-gradient(135deg, #e8f0fa 0%, #a8b8cc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--text-3);
+      max-width: 420px;
+      margin: 0 auto 40px;
+      font-weight: 400;
+    }
+    .hero-stats {
+      display: inline-flex;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .stat {
+      padding: 12px 28px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      display: block;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text);
+      font-family: 'Playfair Display', serif;
+    }
+    .stat-label {
+      display: block;
+      font-size: .7rem;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-top: 1px;
+    }
+
+    /* ─────────────────────────────────────────
+       FILTER BAR
+    ───────────────────────────────────────── */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 28px 0;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .filter-tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px;
+    }
+    .tab {
+      padding: 7px 20px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--text-3);
+      font-family: 'Inter', sans-serif;
+      font-size: .83rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .tab:hover { color: var(--text-2); }
+    .tab.on-all    { background: var(--surface3); color: var(--text); }
+    .tab.on-habits { background: var(--habits-dim); color: var(--habits); }
+    .tab.on-health { background: var(--health-dim); color: var(--health); }
+    .filter-count {
+      font-size: .78rem;
+      color: var(--text-3);
+    }
+    .filter-count strong { color: var(--text-2); }
+
+    /* ─────────────────────────────────────────
+       MAIN GRID
+    ───────────────────────────────────────── */
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 28px 100px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      margin-top: 48px;
+    }
+    .section-header:first-child { margin-top: 0; }
+    .section-icon {
+      width: 32px; height: 32px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      flex-shrink: 0;
+    }
+    .section-icon.habits { background: var(--habits-dim); }
+    .section-icon.health { background: var(--health-dim); }
+    .section-title {
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .section-title.habits { color: var(--habits); }
+    .section-title.health { color: var(--health); }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border2), transparent);
+    }
+    .section-count {
+      font-size: .75rem;
+      color: var(--text-3);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 2px 10px;
+    }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    /* ─────────────────────────────────────────
+       BOOK CARD
+    ───────────────────────────────────────── */
+    .book-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1),
+                  box-shadow .25s,
+                  border-color .2s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .book-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--r);
+      background: linear-gradient(135deg, rgba(255,255,255,.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .book-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 20px 48px rgba(0,0,0,.7),
+                  0 0 0 1px var(--card-accent, var(--blue));
+      border-color: var(--card-accent, var(--blue));
+    }
+
+    .book-spine {
+      width: 5px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      background: var(--card-accent, var(--blue));
+      opacity: .7;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .book-cover {
+      height: 148px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 16px 16px 16px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .book-cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.5) 100%);
+    }
+    .book-cover-icon {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(8px);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    .book-cover-title {
+      position: relative;
+      z-index: 1;
+      font-family: 'Playfair Display', serif;
+      font-size: .92rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+      text-shadow: 0 1px 4px rgba(0,0,0,.4);
+    }
+
+    .book-body {
+      padding: 14px 14px 14px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .book-author {
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .book-tagline {
+      font-size: .82rem;
+      color: var(--text-2);
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .book-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+    .book-chapters {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .73rem;
+      color: var(--text-3);
+    }
+    .book-chapters svg { opacity: .5; }
+    .read-btn {
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--card-accent, var(--blue));
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: all .2s;
+    }
+    .book-card:hover .read-btn {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─────────────────────────────────────────
+       MODAL / OVERLAY
+    ───────────────────────────────────────── */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4,8,16,.85);
+      backdrop-filter: blur(12px);
+      z-index: 200;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 16px 40px;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+    .overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 760px;
+      overflow: hidden;
+      transform: translateY(32px) scale(.96);
+      transition: transform .35s cubic-bezier(.22,1,.36,1);
+      box-shadow: var(--shadow-lg);
+      margin-top: 12px;
+    }
+    .overlay.open .modal { transform: none; }
+
+    /* Modal top banner */
+    .modal-banner {
+      height: 180px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px 28px;
+    }
+    .modal-banner-bg {
+      position: absolute;
+      inset: 0;
+    }
+    .modal-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.6) 100%);
+    }
+    .modal-banner-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      gap: 18px;
+      width: 100%;
+    }
+    .modal-book-icon {
+      width: 64px;
+      height: 80px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .modal-book-icon svg { width: 28px; height: 28px; }
+    .modal-banner-text { flex: 1; }
+    .modal-banner-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .modal-banner-text .modal-author {
+      font-size: .82rem;
+      color: rgba(255,255,255,.65);
+      margin-top: 4px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 2;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(0,0,0,.4);
+      border: 1px solid rgba(255,255,255,.15);
+      backdrop-filter: blur(8px);
+      color: rgba(255,255,255,.8);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .15s;
+    }
+    .modal-close:hover { background: rgba(0,0,0,.7); color: #fff; }
+
+    .modal-body { padding: 0 28px 28px; }
+
+    /* Category + tagline row */
+    .modal-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 0 14px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .cat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid;
+    }
+    .cat-badge.habits {
+      background: var(--habits-dim);
+      color: var(--habits);
+      border-color: rgba(245,158,11,.3);
+    }
+    .cat-badge.health {
+      background: var(--health-dim);
+      color: var(--health);
+      border-color: rgba(16,185,129,.3);
+    }
+    .modal-tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: .9rem;
+      color: var(--text-2);
+    }
+    .modal-chapter-count {
+      margin-left: auto;
+      font-size: .75rem;
+      color: var(--text-3);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+    }
+
+    /* Insight card */
+    .insight-card {
+      margin: 18px 0;
+      border-radius: 14px;
+      padding: 18px 20px;
+      border: 1px solid;
+      position: relative;
+      overflow: hidden;
+    }
+    .insight-card::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      right: 12px;
+      font-family: 'Playfair Display', serif;
+      font-size: 6rem;
+      line-height: 1;
+      opacity: .07;
+    }
+    .insight-label {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .insight-text {
+      font-size: .875rem;
+      line-height: 1.7;
+      color: var(--text-2);
+    }
+
+    /* Chapters */
+    .chapters-label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chapters-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Accordion */
+    .acc {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 8px;
+      overflow: hidden;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .acc:hover { border-color: var(--border2); }
+    .acc.is-open {
+      border-color: var(--card-accent, var(--blue));
+      box-shadow: 0 0 0 1px var(--card-accent, var(--blue)) inset,
+                  0 4px 20px rgba(0,0,0,.3);
+    }
+
+    .acc-trigger {
+      width: 100%;
+      background: var(--surface2);
+      border: none;
+      padding: 13px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      text-align: left;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      transition: background .15s;
+    }
+    .acc-trigger:hover { background: var(--surface3); }
+    .acc.is-open .acc-trigger { background: var(--surface3); }
+
+    .ch-badge {
+      font-size: .65rem;
+      font-weight: 700;
+      color: var(--text-3);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+      transition: color .2s, border-color .2s;
+    }
+    .acc.is-open .ch-badge {
+      color: var(--card-accent, var(--blue));
+      border-color: var(--card-accent, var(--blue));
+    }
+    .acc-title {
+      font-size: .875rem;
+      font-weight: 500;
+      flex: 1;
+      line-height: 1.35;
+      color: var(--text-2);
+      transition: color .15s;
+    }
+    .acc:hover .acc-title,
+    .acc.is-open .acc-title { color: var(--text); }
+
+    .acc-arrow {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform .25s, background .2s, border-color .2s;
+      font-size: .55rem;
+      color: var(--text-3);
+    }
+    .acc.is-open .acc-arrow {
+      transform: rotate(180deg);
+      background: var(--card-accent, var(--blue));
+      border-color: var(--card-accent, var(--blue));
+      color: #fff;
+    }
+
+    .acc-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s cubic-bezier(.4,0,.2,1);
+    }
+    .acc-body.open { max-height: 700px; }
+    .acc-inner {
+      padding: 16px 16px 18px;
+      border-top: 1px solid var(--border);
+      font-size: .855rem;
+      color: var(--text-3);
+      line-height: 1.75;
+    }
+    .takeaway {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+    .takeaway-icon {
+      font-size: .85rem;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+    .takeaway-text {
+      font-size: .82rem;
+      color: var(--text-2);
+      line-height: 1.55;
+    }
+    .takeaway-text strong {
+      color: var(--card-accent, var(--blue));
+      font-weight: 600;
+      font-size: .7rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .hero { padding: 64px 20px 48px; }
+      .hero-stats { flex-direction: column; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:last-child { border-bottom: none; }
+      .books-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .modal-body { padding: 0 18px 24px; }
+      .modal-banner { padding: 20px 18px; }
+      main { padding: 24px 16px 80px; }
+      .filter-bar { padding: 0 16px; }
+    }
+    @media (max-width: 400px) {
+      .books-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Entrance animation */
+    .book-card {
+      animation: fadeUp .4s both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .books-grid .book-card:nth-child(1) { animation-delay: .05s }
+    .books-grid .book-card:nth-child(2) { animation-delay: .1s }
+    .books-grid .book-card:nth-child(3) { animation-delay: .15s }
+    .books-grid .book-card:nth-child(4) { animation-delay: .2s }
+  </style>
+</head>
+<body>
+
+<!-- ── Hero ────────────────────────────────────────── -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-pill"><span></span>Personal Library</div>
+    <h1>Habits &amp; Health<br>Book Summaries</h1>
+    <p class="hero-sub">Chapter-by-chapter breakdowns of 7 books that changed how I think about behaviour and wellbeing.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">7</span>
+        <span class="stat-label">Books</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">95</span>
+        <span class="stat-label">Chapters</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">2</span>
+        <span class="stat-label">Categories</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Filter Bar ──────────────────────────────────── -->
+<div class="filter-bar">
+  <div class="filter-tabs">
+    <button class="tab on-all"    onclick="filter('all', this)">All</button>
+    <button class="tab"           onclick="filter('habits', this)">Habits</button>
+    <button class="tab"           onclick="filter('health', this)">Health</button>
+  </div>
+  <p class="filter-count" id="count-label"></p>
+</div>
+
+<!-- ── Main Content ────────────────────────────────── -->
+<main id="main"></main>
+
+<!-- ── Modal ──────────────────────────────────────── -->
+<div class="overlay" id="overlay" onclick="onOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-banner" id="modal-banner">
+      <div class="modal-banner-bg" id="modal-banner-bg"></div>
+      <div class="modal-banner-overlay"></div>
+      <div class="modal-banner-content" id="modal-banner-content"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-meta-row" id="modal-meta"></div>
+      <div id="modal-insight"></div>
+      <p class="chapters-label">Chapter Summaries</p>
+      <div id="modal-chapters"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const EMOJIS = { habits: '⚡', health: '🌿' };
+
+const BOOKS = [
+  /* ── HABITS ──────────────────────────────────────────────── */
+  {
+    id: 'atomic', category: 'habits',
+    title: 'Atomic Habits', author: 'James Clear',
+    tagline: 'Tiny changes, remarkable results.',
+    emoji: '⚡',
+    grad: 'linear-gradient(135deg, #f59e0b 0%, #b45309 50%, #78350f 100%)',
+    insight: 'A 1% improvement every day compounds to 37× better over a year. Habits are the compound interest of self-improvement — the quality of your systems determines the quality of your life.',
+    chapters: [
+      { n:'Intro', t:'The Surprising Power of Atomic Habits',
+        s:'Clear opens with the British Cycling story: aggregation of marginal gains transformed a losing team into world champions by improving every process by 1%. Habits are not a finish line — they are a continuous system. Identity and outcomes are downstream of your daily processes.',
+        k:'1% better every day = 37× better by year end.' },
+      { n:'Ch 1', t:'The Surprising Power of Tiny Habits',
+        s:'Goals are not the differentiator between winners and losers — systems are. Both champions and also-rans often share the same goals; what differs is the processes they follow. When you focus on the system rather than the outcome, improvement becomes inevitable rather than occasional.',
+        k:'You do not rise to the level of your goals; you fall to the level of your systems.' },
+      { n:'Ch 2', t:'How Your Habits Shape Your Identity',
+        s:'Identity-based habits are more durable than outcome-based ones. Instead of "I want to run a marathon," say "I am a runner." Every action is a vote for the kind of person you wish to become. The goal is not to read a book; the goal is to become a reader.',
+        k:'Decide the type of person you want to be, then prove it with small wins.' },
+      { n:'Ch 3', t:'How to Build Better Habits in 4 Steps',
+        s:'All habits follow a neurological feedback loop: Cue → Craving → Response → Reward. The cue triggers a behaviour; the craving is the motivational force; the response is the habit itself; the reward satisfies the craving and teaches the brain to remember the loop for next time.',
+        k:'Make cues obvious, cravings attractive, responses easy, rewards satisfying.' },
+      { n:'Ch 4', t:'The Man Who Didn\'t Look Right',
+        s:'Most cues operate below conscious awareness. Japan\'s railway "pointing-and-calling" system — naming what you see out loud — raises awareness and dramatically reduces errors. A personal habit scorecard helps you catalogue your automatic behaviours without judgement before attempting to change them.',
+        k:'You can\'t change what you don\'t notice.' },
+      { n:'Ch 5', t:'The Best Way to Start a New Habit',
+        s:'Implementation intentions — "I will [BEHAVIOUR] at [TIME] in [LOCATION]" — dramatically increase follow-through by giving habits a specific anchor in time and space. Habit stacking pairs a new behaviour directly after an existing one: "After I [CURRENT HABIT], I will [NEW HABIT]."',
+        k:'Specificity of when and where beats vague motivation.' },
+      { n:'Ch 6', t:'Motivation Is Overrated; Environment Matters More',
+        s:'Behaviour is shaped primarily by context, not character. Small environmental tweaks — leaving your guitar on the stand, putting fruit on the counter — make good habits the default choice. Design your space so that the cues for good habits are visible and the cues for bad ones are hidden.',
+        k:'Design your environment so the right choices are the obvious ones.' },
+      { n:'Ch 7', t:'The Secret to Self-Control',
+        s:'Highly disciplined people don\'t resist temptation through heroic willpower — they structure their lives to rarely encounter it. Self-control is a short-term strategy, not a long-term plan. The best way to break a bad habit is to remove the cue from the environment entirely.',
+        k:'Reduce exposure to the things that trigger your unwanted habits.' },
+      { n:'Ch 8', t:'How to Make a Habit Irresistible',
+        s:'Dopamine spikes in anticipation of reward, not just at the moment of reward. Temptation bundling pairs something you want to do with something you need to do, making difficult habits more attractive. Linking a habit to an activity you already enjoy increases compliance dramatically.',
+        k:'Pair a habit you need with an experience you want.' },
+      { n:'Ch 9', t:'The Role of Family and Friends',
+        s:'We imitate the habits of three groups: those close to us, the many (our tribe), and the powerful. Joining a culture where your desired behaviour is normal is one of the most powerful habit-change strategies available. The group identity reinforces the individual identity.',
+        k:'Surround yourself with people who already have the habits you want.' },
+      { n:'Ch 10', t:'How to Find and Fix Bad Habits',
+        s:'Every craving is driven by an underlying motive — status, certainty, connection, autonomy. Bad habits offer a flawed solution to a legitimate human need. Reframing a habit highlights its benefits rather than its costs: "I get to exercise" vs "I have to exercise."',
+        k:'Address the underlying need, not just the surface behaviour.' },
+      { n:'Ch 11', t:'Walk Slowly, but Never Backward',
+        s:'Motion (planning, strategising, researching) feels productive but produces no direct result. Action (the actual behaviour) produces the outcome. Long-term potentiation strengthens neural pathways with every repetition. The number of reps matters more than the time spent preparing.',
+        k:'Repetitions build habits; planning alone does not.' },
+      { n:'Ch 12', t:'The Law of Least Effort',
+        s:'Human behaviour naturally flows toward the option requiring the least work. Reduce friction for good habits and add friction to bad ones. Prime your environment: set out the gym bag the night before, delete social apps from your phone, put the TV remote in a drawer.',
+        k:'Reduce the number of steps between you and your good habits.' },
+      { n:'Ch 13', t:'How to Stop Procrastinating: The Two-Minute Rule',
+        s:'When starting a new habit, it should take less than two minutes. "Run a marathon" becomes "put on my running shoes." The two-minute rule bridges intention and action. Starting is usually enough to generate momentum for the full activity — beginning is its own reward.',
+        k:'Make it so easy you can\'t say no.' },
+      { n:'Ch 14', t:'How to Make Good Habits Inevitable',
+        s:'Commitment devices lock in good future behaviour from the present. One-time choices — setting up automatic savings, meal delivery subscriptions, website blockers — deliver ongoing returns without requiring repeated willpower. Automate the virtuous choice.',
+        k:'A single one-time decision can permanently lock in future behaviour.' },
+      { n:'Ch 15', t:'The Cardinal Rule of Behavior Change',
+        s:'The human brain prioritises immediate rewards over delayed rewards — the time inconsistency problem. What is immediately rewarded is repeated; what is immediately punished is avoided. Adding a moment of pleasure to a healthy habit reinforces it. Visual tracking provides immediate gratification.',
+        k:'Attach immediate satisfaction to habits whose benefits are delayed.' },
+      { n:'Ch 16', t:'How to Stick with Good Habits Every Day',
+        s:'Habit tracking makes progress visible, creates a satisfying streak, and provides evidence of identity change. The streak itself becomes a motivating force. The most important rule: never miss twice. Missing once is an accident; missing twice is the beginning of a new (bad) habit.',
+        k:'Keep the streak alive. When you break it, recover immediately.' },
+      { n:'Ch 17', t:'How an Accountability Partner Changes Everything',
+        s:'A habit contract — a verbal or written agreement with another person to uphold a habit, with clear consequences for breaking it — adds social stakes. Because humans are deeply loss-averse and status-aware, the threat of social embarrassment is a powerful motivating force.',
+        k:'Social consequences make the cost of bad habits immediate and tangible.' },
+      { n:'Ch 18', t:'The Truth About Talent',
+        s:'Genes predispose but don\'t predetermine. The explore/exploit framework: early in a pursuit, experiment broadly; once you identify a match between your abilities and a task, focus intensely. When habits feel effortless rather than grinding, you\'re likely in an area suited to your biology.',
+        k:'Match your habits to your natural strengths.' },
+      { n:'Ch 19', t:'The Goldilocks Rule: Staying Motivated',
+        s:'Peak motivation occurs at the boundary of current ability — tasks that are just manageable. This is the Goldilocks Zone. Too easy and you\'re bored; too hard and you\'re overwhelmed; just right and you enter flow. Variable reward schedules (like slot machines) sustain long-term engagement.',
+        k:'Maintain motivation by operating at the edge of your abilities.' },
+      { n:'Ch 20', t:'The Downside of Creating Good Habits',
+        s:'Once a skill becomes habit, you stop consciously attending to small errors. Mastery requires combining automaticity (habit) with deliberate review. Periodically audit your systems, reflect on your identity, and ask: "Is this actually working or have I just gotten comfortable?"',
+        k:'Habits alone don\'t produce mastery — add deliberate reflection.' },
+      { n:'Concl.', t:'The Secret to Results That Last',
+        s:'The aggregation of marginal gains is relentless and self-reinforcing. Each habit is a vote for your identity; each strengthened identity drives future habits. Success is not a destination but a continuous system to improve. There is no finish line — and that is the point.',
+        k:'The work is never done, and that\'s exactly what makes it powerful.' },
+    ]
+  },
+
+  {
+    id: 'compound', category: 'habits',
+    title: 'The Compound Effect', author: 'Darren Hardy',
+    tagline: 'Reap huge rewards from small, seemingly insignificant actions.',
+    emoji: '📈',
+    grad: 'linear-gradient(135deg, #f97316 0%, #c2410c 50%, #7c2d12 100%)',
+    insight: 'The Compound Effect is the strategy of reaping huge rewards from small, seemingly insignificant actions. No magic, no secrets, no shortcuts — just the formula of choices multiplied by time, creating unstoppable momentum.',
+    chapters: [
+      { n:'Ch 1', t:'The Compound Effect in Action',
+        s:'Hardy opens with three friends making tiny different daily choices. After 27 months their lives are dramatically different. Small decisions — a single cookie, a 10-minute walk, one page of a book — compound invisibly until the difference becomes impossible to ignore. Most people overestimate what they can achieve in a year and underestimate what they can achieve in a decade.',
+        k:'Small choices compound invisibly for months, then explosively diverge.' },
+      { n:'Ch 2', t:'Choices',
+        s:'You are the sum of your decisions. Most people underestimate small choices because results are delayed and invisible. Track every major decision in a journal for 30 days. Own your outcomes completely — 100% responsibility, zero blame — because the moment you blame outside forces, you surrender your power to change.',
+        k:'Track your choices. You can\'t improve what you don\'t measure.' },
+      { n:'Ch 3', t:'Habits',
+        s:'Habits are the invisible algorithms running your life. The habit installation process: identify the keystone habits that unlock other habits; understand the triggers (emotional, environmental, social); and consciously install new routines by replacing bad ones rather than suppressing them. A 10-day tracking exercise exposes patterns you didn\'t know existed.',
+        k:'You must identify and map your habits before you can change them.' },
+      { n:'Ch 4', t:'Momentum',
+        s:'Big Mo — momentum — is the great multiplier. Starting any new behaviour requires enormous energy; maintaining it requires far less. The critical danger period is the "struggle zone" in weeks 2–4 when novelty has faded but results haven\'t appeared. Push through it and momentum becomes your engine. Morning routines anchor and generate momentum.',
+        k:'Push through the early resistance until momentum takes over.' },
+      { n:'Ch 5', t:'Influences',
+        s:'You are the average of the five people you spend the most time with. Control three key inputs: your associations (who you spend time with), your inputs (what you read, watch, and listen to), and your environment (what you see and smell). Predetermine your influences; don\'t leave them to chance.',
+        k:'Audit your associations and inputs — they shape your destiny more than you realise.' },
+      { n:'Ch 6', t:'Acceleration',
+        s:'Winners do what is expected and then a little more. After fulfilling every commitment, add 10% extra effort — the extra call, the extra rep, the slightly better version. Most people stop at "good enough." This extra effort — invisible to others in the short term — is where compounding multiplies results dramatically over years.',
+        k:'Do what\'s expected, then exceed it by just 10% every single time.' },
+    ]
+  },
+
+  {
+    id: 'power', category: 'habits',
+    title: 'The Power of Habit', author: 'Charles Duhigg',
+    tagline: 'Why we do what we do in life and business.',
+    emoji: '🔄',
+    grad: 'linear-gradient(135deg, #d97706 0%, #92400e 50%, #451a03 100%)',
+    insight: 'At the core of every habit is a neurological loop — cue, routine, reward. Understanding this loop gives you the power to change almost any behaviour: individual, organisational, or societal.',
+    chapters: [
+      { n:'Prol.', t:'The Habit Cure',
+        s:'Lisa Allen — a smoker with debt and failed relationships — transformed completely after one trip to Cairo. As she changed one habit, others cascaded. Brain scans revealed the same neural patterns operating across all her changes. Prologue introduces the central question: how do habits work and how can they be changed?',
+        k:'Change one keystone habit and a cascade of change becomes possible.' },
+      { n:'Ch 1', t:'The Habit Loop: How Habits Work',
+        s:'Eugene Pauly, a man with severe amnesia, could still learn and execute new habits through the basal ganglia even while unable to form new memories. The three-step neurological loop — cue, routine, reward — runs automatically and below conscious awareness. Chunking compresses behaviour sequences so the thinking brain can disengage.',
+        k:'Habits live in the basal ganglia and run even when conscious memory fails.' },
+      { n:'Ch 2', t:'The Craving Brain',
+        s:'Claude Hopkins\' Pepsodent campaign created a craving (the tingling sensation = cleanliness). Wolfram Schultz\'s monkey research showed dopamine fires in anticipation of reward — not just at reward — once a habit forms. Febreze was failing until P&G added a pleasant scent, creating a satisfying reward that generated a craving for cleanliness.',
+        k:'Habits only stick when they create a genuine craving for the reward.' },
+      { n:'Ch 3', t:'The Golden Rule of Habit Change',
+        s:'You can\'t extinguish a bad habit — you can only replace it. The Golden Rule: keep the old cue and the old reward, but insert a new routine in between. AA\'s twelve-step programme works because it replaces the drinking routine with meetings, sponsor calls, and rituals while keeping the social reward and the relief-from-stress reward intact.',
+        k:'Keep the cue and the reward; swap only the routine.' },
+      { n:'Ch 4', t:'Keystone Habits',
+        s:'Some habits create chain reactions that cascade across other areas of life. Exercise is the most researched keystone habit: people who begin exercising also spontaneously eat better, smoke less, and become more productive. Paul O\'Neill at Alcoa focused entirely on worker safety — one metric — and every other KPI improved.',
+        k:'Find the one keystone habit that unlocks a cascade of positive change.' },
+      { n:'Ch 5', t:'Starbucks and the Habit of Success',
+        s:'Travis — a troubled Starbucks employee — succeeded because Starbucks taught him to use LATTE (Listen, Acknowledge, Take action, Thank, Explain) for scripting responses to stressful situations in advance. Willpower is a learnable skill, not a fixed trait. It depletes with use but can be strengthened like a muscle through consistent practice.',
+        k:'Pre-plan responses to triggers before the emotional moment arrives.' },
+      { n:'Ch 6', t:'The Power of a Crisis',
+        s:'Rhode Island Hospital\'s fatal errors came from dysfunctional organisational habits — nurses intimidated by arrogant surgeons, no one empowered to speak up. Genuine reform came only after a public scandal. Wise leaders use crises as opportunities to reform habits that couldn\'t be changed in normal times.',
+        k:'Crises break old institutional habits and create windows for new ones.' },
+      { n:'Ch 7', t:'How Target Knows What You Want Before You Do',
+        s:'Statistician Andrew Pole built a pregnancy prediction model using purchasing patterns — unscented lotion, vitamin supplements, hand sanitiser together predicted pregnancy. Habits form during life transitions (pregnancy, moving, divorce, starting college) when brains actively seek new routines. Target sandwiched targeted ads inside familiar products to stay under the radar.',
+        k:'Life transitions are the most powerful windows for new habit formation.' },
+      { n:'Ch 8', t:'Saddleback Church and the Montgomery Bus Boycott',
+        s:'Rosa Parks\' arrest succeeded where earlier arrests had failed because of her wide network of strong ties (close friends) and weak ties (acquaintances across social groups). Rick Warren\'s Saddleback Church spread through small groups activating both bonds. Social movements require habits that spread across social boundaries.',
+        k:'Social movements spread through strong ties plus weak ties bridging communities.' },
+      { n:'Ch 9', t:'The Neurology of Free Will',
+        s:'Brian Thomas, a sleepwalker who strangled his wife, was acquitted — his habit was truly unconscious. Angie Bachmann, a compulsive gambler who lost everything, was held liable despite addiction — because she had been made aware of the habit\'s power. The conclusion: once you understand the habit loop, you become responsible for changing it.',
+        k:'Awareness of the habit loop creates both responsibility and agency.' },
+    ]
+  },
+
+  /* ── HEALTH ──────────────────────────────────────────────── */
+  {
+    id: 'body-score', category: 'health',
+    title: 'The Body Keeps the Score', author: 'Bessel van der Kolk',
+    tagline: 'Brain, mind, and body in the healing of trauma.',
+    emoji: '🧠',
+    grad: 'linear-gradient(135deg, #10b981 0%, #047857 50%, #064e3b 100%)',
+    insight: 'Trauma reshapes the brain, body, and nervous system. Healing requires more than talking about the past — it requires helping survivors inhabit their bodies safely again, in the present.',
+    chapters: [
+      { n:'Prol.', t:'The Problem with Trauma',
+        s:'Van der Kolk opens with Vietnam veterans whose suffering persisted decades after the war. He argues that trauma fundamentally reorganises how the mind and brain manage perception — turning off the parts of the brain that convey aliveness and meaning, and activating the survival alarm system. Recovery requires restoring a sense of agency.',
+        k:'Trauma is not stored as narrative — it lives in the body and shapes every present moment.' },
+      { n:'Ch 1', t:'Lessons from Vietnam Veterans',
+        s:'Veterans re-experienced trauma as vivid, present-tense flashbacks triggered by benign stimuli. Their nervous systems were locked in permanent threat mode. PTSD was officially recognised in 1980. Van der Kolk noticed veterans were addicted to the adrenaline of combat — their bodies had become alien to peace and safety.',
+        k:'Trauma keeps the body locked in the past — survival mode becomes the default state.' },
+      { n:'Ch 2', t:'Revolutions in Understanding Mind and Brain',
+        s:'The shift from Freudian interpretation to neurobiological understanding changed everything. Brain plasticity, neurotransmitter research, and brain imaging revealed that trauma changes brain structure physically. Medication treats symptoms without addressing underlying neural reorganisation — it is a necessary but insufficient tool.',
+        k:'The brain can reorganise — understanding this opens entirely new avenues for healing.' },
+      { n:'Ch 3', t:'Looking into the Brain: The Neuroscience of Trauma',
+        s:'Brain scans of trauma survivors showed hyper-activation of the amygdala (alarm system) and under-activation of Broca\'s area (language/speech). This explains why trauma survivors cannot put their experience into words — the experience is literally unspeakable from a neurological standpoint. The body communicates what language cannot.',
+        k:'Trauma silences the linguistic brain — words alone cannot fully heal it.' },
+      { n:'Ch 4', t:'Running for Your Life: The Anatomy of Survival',
+        s:'The reptilian brain triggers fight, flight, or freeze before the rational prefrontal cortex has time to process the situation. Trauma survivors respond to present-day triggers as if the original threat is still present. Heart races, muscles tense, vision narrows — the full survival mobilisation — occurs in complete safety.',
+        k:'The survival brain acts before the thinking brain; trauma freezes this process in time.' },
+      { n:'Ch 5', t:'Body-Brain Connections',
+        s:'Interoception — the sense of what is happening inside our bodies — is disrupted by trauma. Survivors lose touch with gut feelings, physical cues, and the body\'s wisdom. They can neither feel nor trust their internal signals. Restoring interoception — the ability to feel safe inside one\'s own skin — is central to all healing.',
+        k:'Healing begins with reconnecting to physical sensations in a safe, graduated way.' },
+      { n:'Ch 6', t:'Losing Your Body, Losing Your Self',
+        s:'Dissociation allows the mind to escape unbearable experience by detaching from the body. Long-term dissociation leads to depersonalisation — feeling unreal, watching life from outside oneself. Re-inhabiting the body after dissociation requires gradual, titrated exposure to physical sensation, always within the window of tolerance.',
+        k:'Dissociation is protective but must eventually be reversed for full recovery.' },
+      { n:'Ch 7', t:'Getting on the Same Wavelength: Attachment',
+        s:'Secure attachment — the felt sense that another person is fully attuned to your emotional signals — is the biological foundation of self-regulation. Infants co-regulate with caregivers; their nervous systems sync. Adults who never experienced this attunement struggle to regulate themselves. The good news: attunement can be learned later in life.',
+        k:'Secure attachment is the biological foundation of emotional self-regulation.' },
+      { n:'Ch 8', t:'Trapped in Relationships: The Cost of Abuse',
+        s:'Children depend on caregivers for survival and therefore cannot afford to consciously hate their abusers. They instead develop distorted attachments and internalise blame — "I must be bad" preserves the needed relationship but creates lasting shame, self-hatred, and self-destructive patterns that follow them into adulthood.',
+        k:'Children survive abuse by distorting their own self-perception — therapy must untangle this.' },
+      { n:'Ch 9', t:'What\'s Love Got to Do with It?',
+        s:'Disorganised attachment occurs when the caregiver is simultaneously the source of terror and comfort — a neurological bind. The brain cannot solve this contradiction and fragments into competing survival strategies. These children struggle with self-regulation, identity, and relationships and are at high risk for many adult mental health diagnoses.',
+        k:'Disorganised attachment fragments the self — healing requires careful integration over time.' },
+      { n:'Ch 10', t:'Developmental Trauma: The Hidden Epidemic',
+        s:'The ACE (Adverse Childhood Experiences) studies showed a dose-response relationship: the more childhood adversity, the worse the lifelong health outcomes, mental health outcomes, and life expectancy. Van der Kolk argues for a formal Developmental Trauma Disorder diagnosis — a category not captured by PTSD or other existing diagnoses.',
+        k:'Childhood adversity is a public health crisis with profound, measurable lifelong consequences.' },
+      { n:'Ch 11', t:'Uncovering Secrets: The Problem of Traumatic Memory',
+        s:'Traumatic memories are encoded differently from ordinary memories — as sensory fragments (smells, images, sounds, body sensations) rather than coherent linear narratives. Unlike ordinary memory, traumatic memory remains vivid, uncontextualised, and permanently present-tense. This explains both flashbacks and recovered memories.',
+        k:'Traumatic memory is sensory and timeless — it doesn\'t fade the way normal memory does.' },
+      { n:'Ch 12', t:'The Unbearable Heaviness of Remembering',
+        s:'Some trauma survivors develop somatic symptoms — paralysis, blindness, chronic pain — without organic pathological cause (conversion disorder). The body expresses what the mind refuses to process. Van der Kolk argues these are genuine neurological phenomena, not fabrication, and must be treated with the same respect as any physical symptom.',
+        k:'What cannot be spoken is eventually expressed through the body as symptom.' },
+      { n:'Ch 13', t:'Healing from Trauma: Owning Your Self',
+        s:'Recovery moves through three stages: (1) establishing safety and stabilisation in the present, (2) processing and mourning traumatic experiences, and (3) reconnecting with ordinary life and other people. These stages are sequential and interdependent — attempting stage 2 without completing stage 1 typically causes retraumatisation.',
+        k:'Safety first, then processing, then reconnection — always in that order.' },
+      { n:'Ch 14', t:'Language: Miracle and Tyranny',
+        s:'Talking about trauma — naming it, constructing a narrative — can help integrate the experience, but only if the body feels physiologically safe first. Pure talk therapy conducted while the nervous system remains in a threat state can retraumatise. Language integrates trauma but is insufficient alone — the body must also experience new forms of safety.',
+        k:'Words help integrate trauma but cannot substitute for body-based healing.' },
+      { n:'Ch 15', t:'Letting Go of the Past: EMDR',
+        s:'Eye Movement Desensitisation and Reprocessing uses bilateral stimulation (eye movements, taps, tones) while briefly accessing traumatic memories. It appears to allow the brain to process previously frozen memories — moving them from implicit to explicit memory. Substantial evidence supports its efficacy despite ongoing controversy about mechanisms.',
+        k:'EMDR helps the brain process frozen traumatic memories through bilateral stimulation.' },
+      { n:'Ch 16', t:'Learning to Inhabit Your Body: Yoga',
+        s:'Yoga gave trauma survivors what talk therapy could not: physical self-mastery and tolerance of inner sensations. Breath, posture, and intentional movement reactivate the ventral vagal brake — the calming branch of the nervous system — and restore the experience of being able to influence what happens inside your own body.',
+        k:'Yoga teaches survivors to safely own their bodies, breath, and present-moment experience.' },
+      { n:'Ch 17', t:'Putting the Pieces Together: Internal Family Systems',
+        s:'IFS therapy treats the mind as a family of sub-personalities (parts). Traumatic experiences create "exiled" parts burdened with intolerable feeling and "protective" parts defending against that pain through numbing, rage, or perfectionism. Healing involves meeting, witnessing, and unburdening each part from the Self with compassionate curiosity.',
+        k:'Self-compassion toward all internal parts — even the frightening ones — is the path to integration.' },
+      { n:'Ch 18', t:'Filling in the Holes: Community and Structure',
+        s:'Community, ritual, and structured shared experience — theatre, music, communal dance — help trauma survivors create meaning and restore the sense of belonging. Van der Kolk\'s research with a Lincoln Park neighbourhood theatre group showed dramatic improvements in trauma symptoms through collaborative creative performance over 20 weeks.',
+        k:'Community, rhythm, and shared story are ancient and extraordinarily powerful medicines.' },
+      { n:'Ch 19', t:'Rewiring the Brain: Neurofeedback',
+        s:'Neurofeedback trains the brain to produce healthier electrical wave patterns by giving real-time EEG feedback. Trauma survivors often show excess high-frequency beta activity (hypervigilance) or excessive slow-wave activity (dissociation/shutdown). Neurofeedback directly normalises these patterns — bypassing language and behaviour entirely.',
+        k:'The brain can be trained to self-regulate through real-time feedback of its own activity.' },
+      { n:'Ch 20', t:'Finding Your Voice: Communal Rhythms and Theater',
+        s:'Rhythmic communal activities — chanting, drumming, theatre, dance — directly engage the ventral vagal social nervous system. Van der Kolk details the Shakespeare in the Courts programme where juvenile offenders transformed through embodied performance. Communal embodied expression may be humanity\'s oldest and most universally available trauma treatment.',
+        k:'Embodied communal expression heals in ways that words and pills cannot.' },
+    ]
+  },
+
+  {
+    id: 'body-no', category: 'health',
+    title: 'When the Body Says No', author: 'Gabor Maté',
+    tagline: 'The cost of hidden stress.',
+    emoji: '💔',
+    grad: 'linear-gradient(135deg, #059669 0%, #047857 50%, #064e3b 100%)',
+    insight: 'The inability to say "no" — to other people, to stress, to the suppression of one\'s own needs — is not a character flaw but a learned survival strategy that the body eventually refuses to sustain, expressing its truth as illness.',
+    chapters: [
+      { n:'Intro', t:'The Mind-Body Unity in Medicine',
+        s:'Maté challenges Western medicine\'s split between mind and body. Physical illness is not separable from emotional history. Through patient stories he builds the argument that repressed emotions, chronic stress, and the habitual abandonment of self contribute directly to the onset and progression of serious disease.',
+        k:'Disease is often the body\'s last resort when emotional truth has been suppressed for too long.' },
+      { n:'Ch 1', t:'The Little Girl Too Good to Be True',
+        s:'Mary, with severe rheumatoid arthritis, was universally described as saintly — never angry, always giving, never complaining. Maté traces the biological pathway between her lifetime of emotional self-suppression and the attack of her own immune system on her joints. Her disease expressed the anger she had never allowed herself to feel.',
+        k:'Compulsive niceness is a chronic stress pattern with measurable immune consequences.' },
+      { n:'Ch 2', t:'The Bermuda Triangle: The Body Under Stress',
+        s:'The three-cornered relationship between the stress-response system, the immune system, and the nervous system operates as an integrated whole. When stress is chronic and emotions are suppressed, cortisol stays chronically elevated — disrupting immune surveillance, increasing inflammation, impairing cellular repair, and ultimately predisposing to disease.',
+        k:'Chronic emotional suppression keeps cortisol elevated, degrading immune function over time.' },
+      { n:'Ch 3', t:'Stress and Emotional Competence',
+        s:'Emotional competence — the ability to feel emotions, express them appropriately, and recognise one\'s own needs — is a learned skill, not a personality trait. Children in emotionally dismissive or chaotic homes don\'t develop this skill. The resulting alexithymia (inability to identify and describe one\'s own feelings) correlates strongly with illness.',
+        k:'Emotional competence is a learnable health skill — its absence predicts disease better than lifestyle.' },
+      { n:'Ch 4', t:'Buried Alive: The Biology of Loss',
+        s:'Bereavement and grief, when not allowed to be expressed openly, turn inward and become biology. Multiple studies show elevated cancer risk, immune suppression, and autoimmune flares following significant losses — especially in individuals who had no permission or capacity to grieve openly. The body mourns what the mind has been taught to deny.',
+        k:'Grief that cannot be expressed becomes biology — the body eventually processes what the mind denied.' },
+      { n:'Ch 5', t:'Never Good Enough: Perfectionism and Illness',
+        s:'Perfectionism — the belief that one\'s worth is conditional on performance — is a form of chronic self-generated stress that never switches off. Maté profiles patients with MS, ALS, and cancer — many of them high-achieving, driven individuals for whom "good enough" was never good enough and who could not afford to show weakness or need.',
+        k:'Perfectionism is a slow-burning chronic stressor that gradually wears down the body.' },
+      { n:'Ch 6', t:'You Are Part of This Too, Dear Doctor',
+        s:'The medical system reinforces the patient\'s disconnection from their own body by treating organs rather than people. Maté reflects candidly on his own compulsive workaholism — missing his son\'s birth to deliver a patient\'s baby — as a pattern of self-abandonment identical to that of his most ill patients. Physicians are not immune.',
+        k:'Healing requires a physician who sees the whole person — and a medical culture that allows this.' },
+      { n:'Ch 7', t:'Stress, Hormones, Repression, and Cancer',
+        s:'Research on the Type C cancer personality identifies clusters of repression, compulsive caretaking, and learned helplessness at time of diagnosis. Stress hormones directly suppress natural killer cell activity — the immune cells responsible for surveying and destroying cancer cells. Suppression removes the body\'s own defences.',
+        k:'Emotional repression suppresses the very immune cells designed to detect and destroy cancer.' },
+      { n:'Ch 8', t:'Something Good Coming Out of Something Bad',
+        s:'Post-traumatic growth — genuine positive psychological change following severe illness — occurs when a diagnosis forces confrontation with repressed needs and the authentic self. Some patients describe cancer, paradoxically, as the gift that finally gave them permission to stop performing and start living honestly.',
+        k:'Illness can catalyse an authentic return to the self — if the person is willing to look.' },
+      { n:'Ch 9', t:'The Biology of Belief',
+        s:'Beliefs and expectations have measurable physiological effects — placebo and nocebo effects are real, documented biological phenomena. Hopelessness — a learned cognitive pattern — directly suppresses immune function. Conversely, a sense of agency, meaning, and purpose actively supports immune competence and recovery.',
+        k:'What you believe about your illness literally changes its biology.' },
+      { n:'Ch 10', t:'Whose Body Says No?',
+        s:'Clear patterns emerge across illness types: people who sacrifice their authentic selves for approval; who feel responsible for others\' emotional states; who have severe difficulty establishing boundaries. Maté is explicit: this is not victim-blaming. These are adaptations to early circumstances that became survival strategies.',
+        k:'Illness clusters in people who have learned, through necessity, to abandon their own needs.' },
+      { n:'Ch 11', t:'It Ain\'t Over \'Til It\'s Over',
+        s:'Recovery is possible even after decades of emotional self-suppression. The brain\'s neuroplasticity, the body\'s remarkable healing capacity, and the power of authentic emotional expression offer genuine grounds for hope. Recovery is not only physical — it is the long, courageous journey back to the authentic self.',
+        k:'The capacity for authentic emotional expression can always be recovered — it is never too late.' },
+      { n:'Ch 12', t:'The Seven A\'s of Healing',
+        s:'Maté\'s healing framework: Acceptance (of present reality), Awareness (of emotional truth), Anger (expressed safely and appropriately), Autonomy (reclaiming your own needs and priorities), Attachment (authentic and healthy connection), Assertion (the ability to say no), and Affirmation (of the self as inherently worthy). These are practices, not states.',
+        k:'Healing is a practice of reclaiming the self through seven interlocking capacities.' },
+    ]
+  },
+
+  {
+    id: 'myth', category: 'health',
+    title: 'The Myth of Normal', author: 'Gabor Maté with Daniel Maté',
+    tagline: 'Trauma, illness and healing in a toxic culture.',
+    emoji: '🌍',
+    grad: 'linear-gradient(135deg, #0d9488 0%, #0f766e 50%, #134e4a 100%)',
+    insight: 'What we call "normal" in modern Western culture is a collective adaptation to chronic disconnection — from self, from others, and from nature — and this disconnection is the root cause of most mental and physical illness.',
+    chapters: [
+      { n:'Intro', t:'The Abnormality of What Passes for Normal',
+        s:'Maté opens by naming the paradox: the most affluent, technologically advanced societies in human history are experiencing epidemics of addiction, chronic disease, depression, and anxiety. He argues this is not a collection of individual failures — it is a systemic product of a culture that is itself traumatogenic.',
+        k:'Our epidemic of illness reflects a sick culture, not defective individuals.' },
+      { n:'Ch 1', t:'The Last Place You\'d Want to Be',
+        s:'A physician witnesses the central contradiction: the more effectively medicine treats chronic disease, the more chronic disease appears. The medical model focused on disease management systematically misses the question of why people are becoming sick in the first place. Origins, not management, must be addressed.',
+        k:'Medicine treats symptoms; healing requires addressing the conditions that produce them.' },
+      { n:'Ch 2', t:'It\'s All in Your Body (and Everyone Else\'s)',
+        s:'The mind-body is one integrated system, not two separate systems that occasionally influence each other. Mental events have direct physical correlates; physical diseases have emotional and social histories. The field of psychoneuroimmunology has produced decades of evidence demonstrating the inseparability of thought, emotion, immune function, and nervous system activity.',
+        k:'The mind-body split is a working fiction — they are one system.' },
+      { n:'Ch 3', t:'The Consistency of Inconsistency',
+        s:'Western culture celebrates individual freedom while enforcing conformity; commodifies health products while creating conditions that destroy health; promotes emotional openness while rewarding emotional suppression in professional life. These cultural contradictions are not neutral — they generate the chronic stress that fuels illness.',
+        k:'Cultural contradictions create a chronic background stress that most people never examine.' },
+      { n:'Ch 4', t:'Bad Genes, Bad Luck, or Bad Circumstances?',
+        s:'Genetic determinism has been systematically oversold to the public. Epigenetics demonstrates that genes are switched on or off by experience, environment, and early development — often permanently. Most chronic disease involves gene-environment interaction, not genetic destiny. This finding is radically empowering rather than fatalistic.',
+        k:'Genes load the gun; environment pulls the trigger — and environment can be changed.' },
+      { n:'Ch 5', t:'Frozen Between Walls: Trauma\'s Footprint',
+        s:'Trauma is not the external event — it is the internal wound. Both "big T" traumas (abuse, violence, catastrophe) and "small t" traumas (emotional unavailability, chronic shaming, conditional love) leave biological imprints. Many people carry unrecognised trauma, mistaking their adaptations — their defences — for their personality.',
+        k:'Trauma is what happens inside you — and most people carry far more than they recognise.' },
+      { n:'Ch 6', t:'Children Under Stress',
+        s:'Children cannot opt out of their families, schools, or social environments. Chronic stress from poverty, family conflict, emotional neglect, racism, or social isolation dysregulates developing nervous systems in ways that persist for decades. ACEs are not destiny — but they are biology, shaping brain development and stress response for life.',
+        k:'Childhood stress becomes adult biology — and society bears collective responsibility for this.' },
+      { n:'Ch 7', t:'What Mental Illness Really Is (and Isn\'t)',
+        s:'Psychiatric diagnoses accurately describe patterns of suffering but say nothing about their causes. ADHD, depression, anxiety, and bipolar disorder are real experiences requiring genuine support — but the DSM diagnostic manual tells us nothing about why people experience them. Symptoms are adaptive responses to conditions, not diseases in the traditional sense.',
+        k:'Mental illness symptoms are adaptive responses — asking "why?" matters more than naming "what."' },
+      { n:'Ch 8', t:'The Addiction Concept Expanded',
+        s:'Addiction is not a brain disease or a moral failing — it is a response to pain. Every addiction — substances, screens, overwork, gambling — answers the question "why the pain?" Shopping, overwork, and busyness are culturally sanctioned addictions invisible to the diagnostic lens. Compassion and curiosity heal addiction; punishment entrenches it.',
+        k:'Ask not what is wrong with the addicted person — ask what happened to them.' },
+      { n:'Ch 9', t:'Debunking the Disease Concept',
+        s:'The medical model treats chronic diseases as entities that attack the body from outside. Maté argues they are the body\'s responses to conditions it cannot sustainably tolerate. Diabetes, hypertension, and autoimmunity are symptoms of dysregulated physiology — and the question is always: what conditions produced this dysregulation?',
+        k:'Chronic disease is the body\'s final statement that something has been unsustainable for too long.' },
+      { n:'Ch 10', t:'The Distressed Gut, the Anxious Heart',
+        s:'The gut and heart have their own autonomous neural networks and are among the first organs to register emotional distress. IBS, Crohn\'s disease, and heart disease show strong correlations with emotional and social histories. The enteric nervous system — sometimes called the second brain — processes emotional experience directly and continuously.',
+        k:'The gut and heart are emotional organs — their symptoms often speak emotional truth.' },
+      { n:'Ch 11', t:'It Ain\'t the Toxin, It\'s the Terrain',
+        s:'Identical adverse exposures produce wildly different outcomes in different people. Resilience is not a fixed genetic trait — it is a function of early secure attachment, ongoing community support, access to meaning, and nervous system health. The terrain of the person shapes the impact of adversity far more than the adversity itself.',
+        k:'Resilience is built through connection and meaning — it can be cultivated at any age.' },
+      { n:'Ch 12', t:'Separation from Self',
+        s:'A common core pattern across many chronic illnesses is disconnection from authentic needs, emotions, and desires. People have learned — usually in childhood, through necessity — to suppress what they really feel to maintain the connection and approval of caregivers. This self-abandonment is invisible to others and usually invisible to the person themselves.',
+        k:'Disconnection from authentic self is the root wound beneath many chronic conditions.' },
+      { n:'Ch 13', t:'Compassionate Inquiry and the Return to Self',
+        s:'Maté\'s therapeutic approach — Compassionate Inquiry — invites people to gently examine the beliefs, defences, and self-suppression strategies they developed as children to survive their circumstances. Healing is not about fixing what is broken. It is about recognising what was never broken — only adapted.',
+        k:'You are not broken — you are adapted. The task is gently recognising the adaptation.' },
+      { n:'Ch 14', t:'Pathways to Wholeness',
+        s:'Healing is not a destination but an ongoing practice of authentic self-recognition, emotional honesty, community connection, and meaning-making. Maté points to psychedelic-assisted therapy, contemplative practices, somatic bodywork, and genuine cultural transformation as necessary complements to formal clinical treatment.',
+        k:'Wholeness emerges from authenticity, genuine connection, and the ongoing courage to feel.' },
+    ]
+  },
+
+  {
+    id: 'vagus', category: 'health',
+    title: 'Accessing the Healing Power of the Vagus Nerve', author: 'Stanley Rosenberg',
+    tagline: 'Self-help exercises for anxiety, depression, trauma, and autism.',
+    emoji: '🧬',
+    grad: 'linear-gradient(135deg, #14b8a6 0%, #0f766e 50%, #134e4a 100%)',
+    insight: 'The ventral vagal state — calm, connected, socially engaged — is the physiological foundation of health. Almost every chronic stress disorder involves vagal dysregulation that can be directly addressed through targeted, simple exercises.',
+    chapters: [
+      { n:'Intro', t:'The Polyvagal Theory in Plain Language',
+        s:'Rosenberg introduces Stephen Porges\' Polyvagal Theory: the autonomic nervous system operates in three hierarchical states — ventral vagal (social safety, connection), sympathetic (fight or flight), and dorsal vagal (freeze/shutdown). Physical and mental health depend on flexibility between states. The vagus nerve is the master regulator of this system.',
+        k:'Health is not the absence of stress — it is flexible movement between autonomic states.' },
+      { n:'Ch 1', t:'The Social Engagement System',
+        s:'The ventral vagal complex controls the muscles of the face, voice, and middle ear — the social engagement system. When functioning well, we listen with ease, speak with resonance, and feel safe in company. When dysregulated, we misread social cues, struggle to hear voices in noisy environments, and feel chronically unsafe with others.',
+        k:'Social connection requires a healthy ventral vagal social engagement system.' },
+      { n:'Ch 2', t:'The Vagus Nerve: Anatomy and Function',
+        s:'The vagus nerve (cranial nerve X) is a bidirectional superhighway connecting brain and all major organ systems. Crucially, 80% of its fibres carry information upward from the body to the brain — meaning the body is continuously informing the mind, not the other way around. Its ventral branch calms the heart, relaxes the gut, and enables vocal communication.',
+        k:'80% of vagal traffic runs upward — the body continuously shapes the mind\'s state.' },
+      { n:'Ch 3', t:'Testing Your Social Engagement System',
+        s:'Rosenberg presents a simple clinical assessment: bilateral mobility of the trapezius and sternocleidomastoid (SCM) muscles indicates ventral vagal function. Poor cervical mobility correlates with chronic social anxiety, hearing difficulties, chronic fatigue, and poor stress recovery. This test becomes the before/after measure for all exercises in the book.',
+        k:'Cervical muscle mobility is a simple, accessible window into vagal function.' },
+      { n:'Ch 4', t:'The Basic Exercise',
+        s:'The signature exercise: while lying flat, place fingers behind the occiput, then move only the eyes (not the head) to one side as far as comfortable, wait for a spontaneous yawn, swallow, or deep breath, then repeat on the other side. This precise movement activates the social engagement system within minutes through specific cranial nerve stimulation.',
+        k:'Eye movements without head movement directly and immediately stimulate the vagus nerve.' },
+      { n:'Ch 5', t:'The Half-Salamander Exercise',
+        s:'A gentle spinal mobilisation derived from the phylogenetic development of vertebrate nervous systems. Moving the head in the opposite direction from the eyes activates specific cranial nerve pathways and gently releases chronic tension patterns in the neck, jaw, and upper spine that often have been held for years or decades.',
+        k:'Opposing movements of eyes and head release deep, chronic nervous system tension.' },
+      { n:'Ch 6', t:'Four Exercises from Yoga',
+        s:'Rosenberg adapts four yoga practices — Salamander, Spinal Twist, Seated Neck Stretch, and Standing Balance — specifically for vagal activation by combining visual field changes, conscious breath, and proprioceptive challenge. The key is the specific combination of these elements, not the yoga tradition itself.',
+        k:'Specific yoga movements can activate the social engagement system when combined correctly.' },
+      { n:'Ch 7', t:'The Head and Face: Cranial Nerve Assessment',
+        s:'Rosenberg maps all twelve cranial nerves and their clinical signs systematically. Disruptions in hearing, vision, swallowing, facial expression, and tongue movement often trace to vagal and cranial nerve dysfunction — problems treatable with specific manual techniques rather than pharmacology.',
+        k:'Many unexplained physical symptoms originate in treatable cranial nerve dysfunction.' },
+      { n:'Ch 8', t:'Trauma and the Nervous System',
+        s:'Trauma leaves the nervous system chronically stuck in sympathetic mobilisation or dorsal vagal shutdown. Most psychological trauma treatment fails, Rosenberg argues, because it doesn\'t address the underlying physiological dysregulation first. Vagal restoration must precede emotional healing — the body must feel safe before the mind can process.',
+        k:'Restore physiological safety in the body before expecting emotional healing to take hold.' },
+      { n:'Ch 9', t:'Hiatal Hernia and the Vagus Nerve',
+        s:'A displaced stomach pressing upward through the diaphragm can directly irritate the vagus nerve, producing chronic anxiety, digestive dysfunction, and even cardiac arrhythmia. Rosenberg presents a simple self-treatment technique (warm water followed by a specific body movement) that can resolve hiatal hernia without surgery or medication.',
+        k:'A simple mechanical displacement can produce symptoms indistinguishable from anxiety disorder.' },
+      { n:'Ch 10', t:'COPD and the Vagus Nerve',
+        s:'Chronic obstructive pulmonary disease involves not only lung tissue damage but also diaphragmatic tension and vagal dysregulation that compound breathing difficulty. Rosenberg demonstrates that restoring vagal function and diaphragm mobility can measurably improve breathing capacity independent of the degree of underlying lung pathology.',
+        k:'Breathing disorders have a nervous system component that can be directly and safely treated.' },
+      { n:'Ch 11', t:'Scoliosis, Autism Spectrum, and Migraine',
+        s:'Rosenberg applies polyvagal thinking to three apparently unrelated conditions. Scoliosis is linked to asymmetrical cranial nerve tension producing uneven muscle tone. Autism spectrum conditions involve social engagement system dysfunction. Migraines are driven by sympathetic over-activation. Simple vagal exercises show measurable improvements in all three.',
+        k:'Diverse conditions share a common thread: vagal dysregulation amenable to direct treatment.' },
+    ]
+  },
+];
+
+// ── State ──────────────────────────────────────────────────
+let activeFilter = 'all';
+
+function filter(cat, btn) {
+  activeFilter = cat;
+  document.querySelectorAll('.tab').forEach(b => {
+    b.className = 'tab';
+  });
+  btn.className = cat === 'all' ? 'tab on-all' : cat === 'habits' ? 'tab on-habits' : 'tab on-health';
+  render();
+}
+
+// ── Render ─────────────────────────────────────────────────
+function render() {
+  const habits = BOOKS.filter(b => b.category === 'habits');
+  const health = BOOKS.filter(b => b.category === 'health');
+  const showH  = activeFilter === 'all' || activeFilter === 'habits';
+  const showHe = activeFilter === 'all' || activeFilter === 'health';
+
+  const total = (showH ? habits.length : 0) + (showHe ? health.length : 0);
+  const totalCh = BOOKS.filter(b => activeFilter === 'all' || b.category === activeFilter)
+                       .reduce((s, b) => s + b.chapters.length, 0);
+  document.getElementById('count-label').innerHTML =
+    `Showing <strong>${total} books</strong> · ${totalCh} chapters`;
+
+  let html = '';
+  if (showH)  html += section('habits', '⚡', 'Habits', habits);
+  if (showHe) html += section('health', '🌿', 'Health', health);
+  document.getElementById('main').innerHTML = html;
+}
+
+function section(cat, emoji, label, books) {
+  return `
+    <div class="section-header">
+      <div class="section-icon ${cat}">${emoji}</div>
+      <span class="section-title ${cat}">${label}</span>
+      <div class="section-line"></div>
+      <span class="section-count">${books.length} books</span>
+    </div>
+    <div class="books-grid">${books.map(card).join('')}</div>
+  `;
+}
+
+function card(b) {
+  const accent = b.category === 'habits' ? 'var(--habits)' : 'var(--health)';
+  return `
+    <div class="book-card" style="--card-accent:${accent}" onclick="open('${b.id}')">
+      <div class="book-spine"></div>
+      <div class="book-cover" style="background:${b.grad}">
+        <div class="book-cover-icon">${b.emoji}</div>
+        <p class="book-cover-title">${b.title}</p>
+      </div>
+      <div class="book-body">
+        <p class="book-author">${b.author}</p>
+        <p class="book-tagline">${b.tagline}</p>
+        <div class="book-footer">
+          <span class="book-chapters">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            ${b.chapters.length} chapters
+          </span>
+          <span class="read-btn">Read ›</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ── Modal ──────────────────────────────────────────────────
+function open(id) {
+  const b = BOOKS.find(x => x.id === id);
+  if (!b) return;
+  const accent = b.category === 'habits' ? 'var(--habits)' : 'var(--health)';
+  const insightBg = b.category === 'habits' ? 'rgba(245,158,11,.07)' : 'rgba(16,185,129,.07)';
+  const insightBorder = b.category === 'habits' ? 'rgba(245,158,11,.25)' : 'rgba(16,185,129,.25)';
+
+  document.getElementById('modal').style.setProperty('--card-accent', accent);
+
+  document.getElementById('modal-banner-bg').style.background = b.grad;
+  document.getElementById('modal-banner-content').innerHTML = `
+    <div class="modal-book-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+      </svg>
+    </div>
+    <div class="modal-banner-text">
+      <h2>${b.title}</h2>
+      <p class="modal-author">${b.author}</p>
+    </div>
+  `;
+
+  document.getElementById('modal-meta').innerHTML = `
+    <span class="cat-badge ${b.category}">${b.emoji} ${b.category}</span>
+    <span class="modal-tagline">"${b.tagline}"</span>
+    <span class="modal-chapter-count">${b.chapters.length} chapters</span>
+  `;
+
+  document.getElementById('modal-insight').innerHTML = `
+    <div class="insight-card" style="background:${insightBg};border-color:${insightBorder}">
+      <p class="insight-label" style="color:${accent === 'var(--habits)' ? 'var(--habits)' : 'var(--health)'}">Core insight</p>
+      <p class="insight-text">${b.insight}</p>
+    </div>
+  `;
+
+  document.getElementById('modal-chapters').innerHTML = b.chapters.map((ch, i) => `
+    <div class="acc" id="acc-${i}">
+      <button class="acc-trigger" onclick="toggle(${i})">
+        <span class="ch-badge">${ch.n}</span>
+        <span class="acc-title">${ch.t}</span>
+        <span class="acc-arrow">▾</span>
+      </button>
+      <div class="acc-body" id="body-${i}">
+        <div class="acc-inner">
+          ${ch.s}
+          <div class="takeaway">
+            <span class="takeaway-icon">✦</span>
+            <div class="takeaway-text">
+              <strong>Key takeaway</strong>
+              ${ch.k}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('overlay').scrollTop = 0;
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function onOverlayClick(e) {
+  if (e.target === document.getElementById('overlay')) closeModal();
+}
+
+function toggle(i) {
+  const item = document.getElementById(`acc-${i}`);
+  const body = document.getElementById(`body-${i}`);
+  const wasOpen = item.classList.contains('is-open');
+
+  document.querySelectorAll('.acc').forEach(a => a.classList.remove('is-open'));
+  document.querySelectorAll('.acc-body').forEach(b => b.classList.remove('open'));
+
+  if (!wasOpen) {
+    item.classList.add('is-open');
+    body.classList.add('open');
+    setTimeout(() => body.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+render();
+</script>
+</body>
+</html>
