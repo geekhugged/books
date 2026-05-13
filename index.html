@@ -27,6 +27,8 @@
       --blue-dim:   rgba(59,130,246,.12);
       --comm:       #a78bfa;
       --comm-dim:   rgba(167,139,250,.12);
+      --dev:        #0ea5e9;
+      --dev-dim:    rgba(14,165,233,.12);
       --r:          16px;
       --shadow-sm:  0 2px 8px rgba(0,0,0,.4);
       --shadow-md:  0 8px 32px rgba(0,0,0,.6);
@@ -181,6 +183,7 @@
     .tab.on-habits { background: var(--habits-dim); color: var(--habits); }
     .tab.on-health { background: var(--health-dim); color: var(--health); }
     .tab.on-comm   { background: var(--comm-dim);   color: var(--comm); }
+    .tab.on-dev    { background: var(--dev-dim);    color: var(--dev); }
     .filter-count {
       font-size: .78rem;
       color: var(--text-3);
@@ -216,6 +219,7 @@
     .section-icon.habits { background: var(--habits-dim); }
     .section-icon.health { background: var(--health-dim); }
     .section-icon.comm   { background: var(--comm-dim); }
+    .section-icon.dev    { background: var(--dev-dim); }
     .section-title {
       font-size: .8rem;
       font-weight: 700;
@@ -225,6 +229,7 @@
     .section-title.habits { color: var(--habits); }
     .section-title.health { color: var(--health); }
     .section-title.comm   { color: var(--comm); }
+    .section-title.dev    { color: var(--dev); }
     .section-line {
       flex: 1;
       height: 1px;
@@ -528,6 +533,11 @@
       color: var(--comm);
       border-color: rgba(167,139,250,.3);
     }
+    .cat-badge.dev {
+      background: var(--dev-dim);
+      color: var(--dev);
+      border-color: rgba(14,165,233,.3);
+    }
     .modal-tagline {
       font-family: 'Playfair Display', serif;
       font-style: italic;
@@ -762,15 +772,15 @@
     <p class="hero-sub">Chapter-by-chapter breakdowns of 7 books that changed how I think about behaviour and wellbeing.</p>
     <div class="hero-stats">
       <div class="stat">
-        <span class="stat-num">10</span>
+        <span class="stat-num">15</span>
         <span class="stat-label">Books</span>
       </div>
       <div class="stat">
-        <span class="stat-num">127</span>
+        <span class="stat-num">173</span>
         <span class="stat-label">Chapters</span>
       </div>
       <div class="stat">
-        <span class="stat-num">3</span>
+        <span class="stat-num">4</span>
         <span class="stat-label">Categories</span>
       </div>
     </div>
@@ -784,6 +794,7 @@
     <button class="tab"           onclick="filter('habits', this)">Habits</button>
     <button class="tab"           onclick="filter('health', this)">Health</button>
     <button class="tab"           onclick="filter('comm', this)">Communication</button>
+    <button class="tab"           onclick="filter('dev', this)">Development</button>
   </div>
   <p class="filter-count" id="count-label"></p>
 </div>
@@ -1323,8 +1334,217 @@ const BOOKS = [
         s:'The empathy jolt is a radical act of vulnerable honesty — sharing a personal experience of failure, fear, or struggle that directly mirrors what the other person is going through. It breaks through walls that rational argument cannot touch. Vulnerability invites vulnerability; authenticity disarms inauthenticity.',
         k:'Strategic vulnerability — sharing your own struggle — creates connection that argument never can.' },
       { n:'Ch 12', t:'Say What You Mean Without Being Mean',
-        s:'Assertiveness without aggression requires precise language: state the specific behaviour, describe the specific impact, and make a specific request — never attack character or make sweeping generalisations. "When you interrupt me in meetings, I lose my train of thought and feel dismissed. Could we agree on a different approach?" This is completelydifferent from "You never listen."',
+        s:'Assertiveness without aggression requires precise language: state the specific behaviour, describe the specific impact, and make a specific request — never attack character or make sweeping generalisations. "When you interrupt me in meetings, I lose my train of thought and feel dismissed. Could we agree on a different approach?" This is completely different from "You never listen."',
         k:'Behaviour + Impact + Request — the formula for assertive communication without aggression.' },
+    ]
+  },
+
+  /* ── DEVELOPMENT ─────────────────────────────────────────── */
+  {
+    id: 'give-take', category: 'dev',
+    title: 'Give and Take', author: 'Adam Grant',
+    tagline: 'Why helping others drives our success.',
+    emoji: '🤲',
+    grad: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 50%, #075985 100%)',
+    insight: 'In every domain of life, people fall into one of three styles: givers, takers, and matchers. The most successful and the least successful people share one trait — they are both givers. What separates them is how they give.',
+    chapters: [
+      { n:'Intro', t:'Good Returns: The Dangers and Rewards of Giving',
+        s:'Grant introduces three reciprocity styles that shape our professional relationships: takers (who try to get more than they give), matchers (who aim for equal exchange), and givers (who contribute without expecting something in return). Counterintuitively, both the top and bottom performers tend to be givers — context determines which outcome unfolds.',
+        k:'Givers occupy both the top and bottom of success ladders — what separates them is how they give.' },
+      { n:'Ch 1', t:'Good Returns: The Spectrum of Reciprocity',
+        s:'Research across engineering firms, medical schools, and sales teams shows that givers generate more value for organisations than takers or matchers. But givers also burn out when they give without boundaries. The key distinction is between selfless giving (which depletes) and otherish giving (which is strategic and sustainable).',
+        k:'The most effective givers are "otherish" — they genuinely care about others AND about their own interests.' },
+      { n:'Ch 2', t:'The Peacock and the Panda: How Givers Build Networks',
+        s:'Takers build networks strategically, targeting influential contacts. Givers build broader, deeper networks by helping people regardless of their status or utility. Dormant ties — people you once knew well but haven\'t contacted in years — are among the most valuable network assets, and givers maintain them better than takers.',
+        k:'Help people regardless of their current status — dormant ties become your most valuable connections.' },
+      { n:'Ch 3', t:'The Ripple Effect: Collaboration and Giving',
+        s:'In team settings, one giver can lift the performance of an entire group by modelling generosity and creating psychological safety. But one taker can destroy a team\'s culture. Grant shows that teams with one highly cooperative member outperform groups where everyone cooperates moderately — the giver\'s behaviour is contagious.',
+        k:'One giver can elevate an entire team — generosity is more contagious than selfishness.' },
+      { n:'Ch 4', t:'Finding the Diamond in the Rough: Recognising Talent',
+        s:'Givers are better at recognising and developing potential in others because they look for what people could become rather than what they currently are. Takers judge people on present utility. Grant profiles C.J. Skender — a legendary accounting professor who mentored hundreds of students others had written off — as the archetype.',
+        k:'Invest in people\'s potential, not just their current performance.' },
+      { n:'Ch 5', t:'The Power of Powerless Communication',
+        s:'Takers tend to use powerful communication — assertive, confident, dominant. Givers often use powerless communication — asking questions, admitting uncertainty, seeking advice. Counterintuitively, powerless communication is often more persuasive because it builds trust and invites collaboration rather than triggering resistance.',
+        k:'Asking for advice is more persuasive than making assertions — it disarms resistance.' },
+      { n:'Ch 6', t:'The Art of Motivation Maintenance: Why Givers Don\'t Burn Out',
+        s:'Givers who see the impact of their giving — who connect their effort to real outcomes for real people — sustain motivation far longer than those who give without feedback. Even brief exposure to the beneficiaries of your work dramatically increases persistence, quality, and generosity. Impact stories are rocket fuel for givers.',
+        k:'See the real impact of your giving — it\'s the most reliable source of sustained motivation.' },
+      { n:'Ch 7', t:'Chump Change: Overcoming the Doormat Effect',
+        s:'Givers become "doormats" when they give to takers who exploit them. The solution is not to stop giving but to screen for takers and redirect generosity toward matchers and fellow givers. Setting conditions ("I\'ll help you if you also help someone else") amplifies the giver\'s impact without enabling exploitation.',
+        k:'Give generously but screen for takers — redirect your energy toward those who appreciate and reciprocate it.' },
+      { n:'Ch 8', t:'The Scrooge Shift: Why Successful People Give Back',
+        s:'The most successful long-term givers are not those who give most at any single moment but those who build giving into their identity and systems over time. Grant profiles how takers sometimes transform into givers after experiencing the limits of taking — and how this shift, once made, tends to be permanent.',
+        k:'Make giving part of your identity, not just an occasional act — then it compounds over a lifetime.' },
+      { n:'Epil.', t:'Actions for Impact',
+        s:'Grant closes with practical frameworks for building a giving culture: the five-minute favour (a small act of help that costs little but creates value), the reciprocity ring (structured peer-help in groups), and chunking helping time (giving in focused blocks rather than constant interruptions). Giving is a skill with learnable techniques.',
+        k:'Build giving into your systems — small, consistent acts of help compound into extraordinary impact.' },
+    ]
+  },
+
+  {
+    id: 'originals', category: 'dev',
+    title: 'Originals', author: 'Adam Grant',
+    tagline: 'How non-conformists move the world.',
+    emoji: '💡',
+    grad: 'linear-gradient(135deg, #38bdf8 0%, #0369a1 50%, #0c4a6e 100%)',
+    insight: 'Originals are not fearless — they feel the same doubt and fear as everyone else. What makes them different is that they act despite their doubts, and they have learned specific strategies for championing new ideas effectively.',
+    chapters: [
+      { n:'Intro', t:'Rejecting the Default',
+        s:'Grant opens with the Warby Parker story: four MBA students who delayed launching their eyewear company for months, kept their day jobs, and still built a billion-dollar business. This challenges the myth that originals are reckless risk-takers. In fact, the most successful innovators are often the most strategic about managing risk.',
+        k:'Originals don\'t take bigger risks — they take calculated risks and hedge everywhere else.' },
+      { n:'Ch 1', t:'Creative Destruction: The Risky Business of Going Against the Grain',
+        s:'The biggest risk is not taking any risk. Grant examines what predicts who will become an original — and finds that having a "broad portfolio" (keeping a day job while pursuing an idea) dramatically increases the odds of success. The entrepreneurs who kept their jobs had 33% lower failure rates than those who quit immediately.',
+        k:'Keep the day job — hedging your bets is not a lack of commitment; it\'s strategic risk management.' },
+      { n:'Ch 2', t:'Blind Inventors and One-Eyed Kings: Recognising Original Ideas',
+        s:'We are terrible judges of our own ideas. The most creative people generate the most ideas — including the most bad ones — because volume is the best predictor of hitting on something exceptional. Quantity enables quality. The solution is not to trust your own judgement but to build better feedback loops and test ideas with divergent evaluators.',
+        k:'Generate more ideas — the best predictor of a great idea is the total number of ideas produced.' },
+      { n:'Ch 3', t:'Out on a Limb: Speaking Truth to Power',
+        s:'The biggest barrier to originality inside organisations is not bad ideas — it is the fear of speaking up. Grant identifies who successfully challenges authority (not stars or newcomers, but respected insiders with demonstrated commitment) and how to frame dissent to be heard (lead with values, not complaints; use "yes, and" not "no, because").',
+        k:'Frame your challenge in terms of shared values — you\'ll be heard as a committed insider, not a critic.' },
+      { n:'Ch 4', t:'Fools Rush In? The Timing of Voice and Action',
+        s:'First-mover advantage is largely a myth — most first movers fail, and fast followers who enter a market once demand is proven succeed more often. The same logic applies to ideas: arriving second or third, once the audience is primed, can be more effective than arriving first. Strategic procrastination creates space for ideas to mature.',
+        k:'Wait until the audience is ready — being second or third to market often beats being first.' },
+      { n:'Ch 5', t:'Goldilocks and the Trojan Horse: Creating Coalitions',
+        s:'Originals build coalitions not by finding perfect allies who agree entirely but by finding people with one point of agreement — and linking that to the cause. The Trojan Horse strategy embeds a new idea inside an existing, accepted framework. Framing a new idea as an extension of the status quo, not a replacement, reduces resistance dramatically.',
+        k:'Find the one thing you agree on, then build the coalition around that single point of overlap.' },
+      { n:'Ch 6', t:'Rebel with a Cause: How Siblings and Mentors Nurture Originality',
+        s:'Laterborns (not firstborns) are statistically more likely to become originals — they can\'t dominate through size or seniority, so they develop creative strategies and risk tolerance. Parents who explain the reasons behind rules (not just issue commands) raise more morally independent children. Role models who embody originality are more powerful than abstract encouragement.',
+        k:'Explain the "why" behind rules to children — it builds moral autonomy, not compliance.' },
+      { n:'Ch 7', t:'Rethinking Groupthink: The Myths of Strong Cultures',
+        s:'Strong cultures do not prevent groupthink — they can accelerate it. Commitment cultures that hire only true believers eliminate the dissent that protects against bad decisions. Bridgewater Associates\' radical transparency creates safety for devil\'s advocates. The best organisations hire for cultural contribution, not cultural fit.',
+        k:'Hire for cultural contribution — people who challenge the culture — not just cultural fit.' },
+      { n:'Ch 8', t:'Rocking the Boat and Keeping It Steady: Managing Anxiety and Doubt',
+        s:'Originals use three strategies to manage fear and maintain commitment: (1) focus on the regret of not trying, not the fear of failure; (2) doubting your doubts — asking "what makes me think this won\'t work?" rather than "what makes me think this will work?"; (3) building a network of dissimilar supporters who each fill a different emotional need.',
+        k:'Regret of inaction outlasts regret of action — use this asymmetry to push through fear.' },
+      { n:'Epil.', t:'Rethinking Originals',
+        s:'Grant closes by reframing originality as something everyone is capable of — not a rare trait of geniuses, but a set of learnable behaviours available to anyone willing to question defaults, develop more ideas, manage their timing, and build coalitions. The world defaults to conformity; originality is the conscious, deliberate choice to question that default.',
+        k:'Originality is not a talent — it is the decision to ask "why does it have to be this way?"' },
+    ]
+  },
+
+  {
+    id: 'option-b', category: 'dev',
+    title: 'Option B', author: 'Adam Grant & Sheryl Sandberg',
+    tagline: 'Facing adversity, building resilience, and finding joy.',
+    emoji: '🌱',
+    grad: 'linear-gradient(135deg, #22d3ee 0%, #0891b2 50%, #164e63 100%)',
+    insight: 'Resilience is not a fixed trait — it is a set of muscles that can be built. When Option A is gone, the goal is not to find a perfect substitute but to kick the hell out of Option B.',
+    chapters: [
+      { n:'Ch 1', t:'Breathing Again',
+        s:'Sandberg opens weeks after her husband Dave\'s sudden death. Grant introduces the three P\'s that block recovery: personalisation (it\'s my fault), pervasiveness (it ruins everything), and permanence (it will never get better). Challenging these distortions — separating them from reality — is the first step toward post-traumatic growth.',
+        k:'Challenge the three P\'s — personalisation, pervasiveness, permanence — they are distortions, not facts.' },
+      { n:'Ch 2', t:'Kicking the Elephant Out of the Room',
+        s:'After loss, well-meaning friends avoid mentioning the person who died, leaving grievers isolated in their pain. Acknowledging the loss directly — saying the person\'s name, asking how they are — is more healing than protective silence. Research shows that social support through adversity predicts recovery better than almost any other factor.',
+        k:'Name the loss, say the person\'s name — silence isolates; acknowledgement heals.' },
+      { n:'Ch 3', t:'The Platinum Rule of Friendship',
+        s:'The Golden Rule ("treat others as you wish to be treated") fails in grief — people in pain need to be treated as they wish to be treated, not as we would want. The Platinum Rule: ask "what do you need?" rather than projecting your own preferences. Checking in repeatedly over time matters more than one large gesture immediately after loss.',
+        k:'Ask what they need, don\'t assume — the Platinum Rule of support after loss.' },
+      { n:'Ch 4', t:'Self-Compassion and Self-Confidence After Trauma',
+        s:'After adversity, the inner critic intensifies — "what could I have done differently?" becomes an obsession. Self-compassion (treating yourself with the kindness you would give a close friend) is not self-indulgence — it is the foundation of recovery. It predicts faster return to normal functioning and greater subsequent resilience.',
+        k:'Treat yourself after failure the way you would treat a good friend — with honesty and kindness.' },
+      { n:'Ch 5', t:'Bouncing Forward: Post-Traumatic Growth',
+        s:'Post-traumatic growth — genuine positive transformation following crisis — is more common than post-traumatic stress. It manifests as deeper relationships, new possibilities, increased personal strength, greater appreciation for life, and spiritual development. Growth does not erase grief — it coexists with it. Building the narrative of growth accelerates it.',
+        k:'Post-traumatic growth is real and common — look for it actively alongside the pain.' },
+      { n:'Ch 6', t:'Taking Back Joy',
+        s:'Joy after loss is not a betrayal — it is a sign of healing and a gift to those who love you. The permission to experience positive emotions — even small ones — is essential to recovery. "Breathing rooms" of joy, laughter, and play are not denial; they are the oxygen that makes continued grieving sustainable.',
+        k:'Joy is not a betrayal of loss — it is the evidence of resilience and a form of honour.' },
+      { n:'Ch 7', t:'Raising Resilient Kids',
+        s:'Children are more resilient than adults typically assume — and overprotecting them from difficulty reduces their resilience. Grant and Sandberg show how explaining loss honestly, allowing children to express all emotions including anger and confusion, and modelling resilience (not false cheerfulness) builds lasting emotional strength in children.',
+        k:'Model resilience honestly — children learn to handle adversity by watching how adults handle it.' },
+      { n:'Ch 8', t:'Finding Strength Together: Community and Collective Resilience',
+        s:'Individual resilience is amplified enormously by community. Shared adversity can either fracture groups or forge deep bonds — the difference lies in whether the community acknowledges collective grief openly and creates rituals around it. African American communities\' emphasis on collective grieving and communal support produces higher resilience under systemic adversity.',
+        k:'Collective resilience amplifies individual resilience — grief shared is grief halved.' },
+      { n:'Ch 9', t:'Failing and Learning at Work',
+        s:'Organisations that punish failure suppress learning and create the conditions for larger failures later. Psychological safety — the belief that you can speak up, fail, and dissent without career consequences — is the strongest predictor of team performance. Leaders who share their own failures and learning model the culture that makes recovery possible.',
+        k:'Share your failures openly — psychological safety is the foundation of organisational resilience.' },
+      { n:'Ch 10', t:'The Option B Mindset',
+        s:'Grant and Sandberg close with the central reframe: Option A is not always recoverable, but Option B — the life built from what remains — can be rich, meaningful, and even better in unexpected ways. The goal is not acceptance in the sense of endorsement, but in the sense of clear-eyed engagement with reality as it is.',
+        k:'Option B is not the consolation prize — it is a life built from genuine strength and clarity.' },
+    ]
+  },
+
+  {
+    id: 'think-again', category: 'dev',
+    title: 'Think Again', author: 'Adam Grant',
+    tagline: 'The power of knowing what you don\'t know.',
+    emoji: '🔄',
+    grad: 'linear-gradient(135deg, #7dd3fc 0%, #0284c7 50%, #0c4a6e 100%)',
+    insight: 'Intelligence is traditionally about knowing and thinking more. In a rapidly changing world, the most critical skill is the willingness to rethink and unlearn — to think like a scientist rather than a preacher, prosecutor, or politician.',
+    chapters: [
+      { n:'Intro', t:'A Preacher, a Prosecutor, a Politician, and a Scientist',
+        s:'Grant identifies four modes of thinking. Preachers defend their beliefs as sacred. Prosecutors attack others\' logic. Politicians seek approval. Scientists form hypotheses, test them, and update based on evidence. In a changing world, the scientific mode — the willingness to be wrong — is the rarest and most valuable cognitive skill.',
+        k:'Think like a scientist: form hypotheses, test them, and update when the evidence contradicts you.' },
+      { n:'Ch 1', t:'The Armchair Quarterback and the Impostor',
+        s:'Confidence and competence are poorly correlated. The Dunning-Kruger effect: novices overestimate their ability because they lack the knowledge to recognise their ignorance. But excessive humility — impostor syndrome — also impedes performance. The sweet spot is "confident humility": believing in your ability to learn while doubting your current conclusions.',
+        k:'Aim for confident humility — certain of your capacity to learn, uncertain of your current knowledge.' },
+      { n:'Ch 2', t:'The Joy of Being Wrong',
+        s:'The most successful forecasters (studied by Philip Tetlock) update their predictions frequently as new information arrives — they wear being wrong as a badge of intellectual engagement, not a source of shame. Grant argues that detaching your self-worth from your opinions is the foundational skill of rethinking. Your ideas are not you.',
+        k:'Detach your identity from your opinions — being wrong becomes exciting, not threatening.' },
+      { n:'Ch 3', t:'The Good Fight Club: The Psychology of Constructive Conflict',
+        s:'Relationship conflict (about people and personalities) harms performance. Task conflict (about ideas and approaches) improves it. High-performing teams have more task conflict than average teams — they disagree productively about the work. The challenge is keeping disagreements on the level of ideas, not identities.',
+        k:'Argue about ideas, not people — task conflict improves performance; relationship conflict destroys it.' },
+      { n:'Ch 4', t:'Dances with Foes: How to Win Debates and Influence People',
+        s:'The instinct in argument is to pile on more evidence when the other person disagrees. Research shows this backfires — it triggers reactance. The more effective approach: acknowledge the complexity of the issue, find the strongest version of their argument, concede valid points, and ask questions that open rather than close the conversation.',
+        k:'Concede what\'s valid in the other side\'s argument — it builds credibility and opens minds.' },
+      { n:'Ch 5', t:'Vaccine Whisperers: How the Right Kind of Listening Motivates Change',
+        s:'Motivational interviewing — the clinical technique of asking people about their own reasons for change rather than lecturing them — is dramatically more effective than persuasion campaigns. When people articulate their own reasons for change, those reasons become theirs. Asking "how confident are you in this belief, on a scale of 1-10?" and then "why not lower?" consistently shifts positions.',
+        k:'Ask people for their own reasons to change — they\'re always more persuasive than yours.' },
+      { n:'Ch 6', t:'Bad Blood on the Diamond: Diminishing Stereotypes',
+        s:'Counterstereotypic examples (a female surgeon, a gentle male athlete) only reinforce stereotypes if presented as exceptions. Deep canvassing — extended, non-judgmental conversation that asks people about their own experiences of prejudice and connects those to the group they hold prejudice toward — produces durable attitude change.',
+        k:'Deep, personal conversations about shared vulnerability change attitudes — brief messaging does not.' },
+      { n:'Ch 7', t:'Charged Conversations: Depolarising Our Divided Discussions',
+        s:'On highly polarised topics, presenting both sides equally can entrench existing views rather than open minds. Presenting the full complexity — including tensions within each side — disrupts the binary thinking that feeds polarisation. Acknowledging that you hold contradictory views yourself signals intellectual honesty and disarms opponents.',
+        k:'Present complexity, not both sides — binary framing feeds polarisation; nuance breaks it.' },
+      { n:'Ch 8', t:'Rewriting the Textbook: Why We Should Teach Rethinking',
+        s:'Education systems overwhelmingly reward remembering over rethinking. The most effective teachers frame knowledge as provisional — presenting debates and unresolved questions rather than settled facts. Students who learn to think in arguments and counterarguments develop lasting intellectual humility and superior long-term retention.',
+        k:'Teach debates and open questions, not just settled facts — uncertainty is intellectually honest.' },
+      { n:'Ch 9', t:'That\'s Not How We\'ve Always Done It: Building Learning Cultures',
+        s:'Process accountability (review decisions by the quality of your reasoning, not just the outcomes) creates learning cultures. Outcome accountability creates cultures that hide failures. Leaders who model rethinking by publicly changing their minds create psychological safety for others to do the same. Learning cultures outperform performance cultures long-term.',
+        k:'Judge decisions by the quality of reasoning at the time, not by outcomes — it builds learning cultures.' },
+      { n:'Epil.', t:'Reconsidering Our Assumptions',
+        s:'Grant closes with the concept of "life review" — regularly scheduling time to reconsider your long-held assumptions, career trajectory, and identity claims. The people who update their beliefs and identities throughout life report greater satisfaction and wisdom than those who crystallise early and stop questioning. Rethinking is not a weakness — it is a sign of intellectual maturity.',
+        k:'Schedule regular life reviews — rethinking your identity and assumptions is a sign of growth, not instability.' },
+    ]
+  },
+
+  {
+    id: 'hidden-potential', category: 'dev',
+    title: 'Hidden Potential', author: 'Adam Grant',
+    tagline: 'The science of achieving greater things.',
+    emoji: '🌟',
+    grad: 'linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #1e3a5f 100%)',
+    insight: 'Potential is not a fixed endowment — it is a set of opportunities to grow. The people who achieve the most are not those with the most raw talent, but those who build the character skills, learning structures, and support systems that allow them to grow the furthest.',
+    chapters: [
+      { n:'Intro', t:'The Misconception of Natural Talent',
+        s:'Grant opens by challenging the cult of raw talent. Standardised tests and early assessments miss the qualities that matter most for long-term achievement: character skills (proactivity, determination, discipline) and the willingness to seek discomfort. The students who grow the most are rarely the ones who start the furthest ahead.',
+        k:'Starting ahead is not a reliable predictor of finishing ahead — character skills matter more than raw talent.' },
+      { n:'Ch 1', t:'Creatures of Discomfort: Seeking the Learning Zone',
+        s:'Growth requires operating in the "learning zone" — challenging enough to stretch, not so hard you collapse. But most people avoid discomfort, staying in the comfort zone where growth is minimal. Grant profiles polyglot language learners who embrace imperfection and embarrassment as signals of being in the right zone, not the wrong one.',
+        k:'Seek discomfort deliberately — embarrassment and struggle are signs you\'re in the learning zone.' },
+      { n:'Ch 2', t:'The Imperfectionist: Embracing Messy First Attempts',
+        s:'Perfectionism is not a strength — it is an obstacle to learning. Perfectionists avoid the imperfect early attempts that are the necessary precondition for excellent later performance. "Better done than perfect" is not mediocrity — it is the scientific reality of how skill develops. First drafts, rough sketches, and bad early reps are essential.',
+        k:'Embrace imperfect first attempts — they are not failures; they are the raw material of mastery.' },
+      { n:'Ch 3', t:'The Perfectionist\'s Trap: When High Standards Backfire',
+        s:'There is a difference between holding high standards for your work and requiring that every step meet those standards. The former drives excellence; the latter creates paralysis and anxiety. Grant shows how elite performers in sports, music, and academia protect early exploration from their critical inner voice, then apply rigour in refinement.',
+        k:'Protect early exploration from your critical eye — apply rigour at the refinement stage, not the generation stage.' },
+      { n:'Ch 4', t:'Transformative Teachers: The Power of High Expectations',
+        s:'Research on Pygmalion effects shows that teachers\' expectations become self-fulfilling prophecies through a specific mechanism: when teachers believe in students, they give them harder material, more feedback, and more warmth. The combination of high challenge and high support is the specific formula that accelerates growth most reliably.',
+        k:'High challenge + high support = the precise combination that most accelerates growth in others.' },
+      { n:'Ch 5', t:'Deliberate Play: Making Practice Enjoyable',
+        s:'"Deliberate practice" — systematic, uncomfortable, feedback-rich repetition — is the most effective way to build skill. But it is also exhausting and requires enormous motivation. Grant introduces "deliberate play" — practice that is challenging and intrinsically enjoyable — as the sustainable alternative that keeps learners engaged long enough to become expert.',
+        k:'Make practice enjoyable enough to sustain — long-term commitment matters more than short-term intensity.' },
+      { n:'Ch 6', t:'Getting Unstuck: When to Persist and When to Pivot',
+        s:'The sunk cost fallacy causes people to persist in failing strategies because they have already invested heavily. Grant introduces the concept of "escalation of commitment" and the signals that distinguish productive struggle (growth is happening slowly) from unproductive struggle (the ceiling is fixed). Knowing when to pivot is as important as knowing how to persist.',
+        k:'Distinguish productive struggle (slow growth) from unproductive struggle (a fixed ceiling) — then act accordingly.' },
+      { n:'Ch 7', t:'Every Child Gets Ahead: Educational Equity and Hidden Potential',
+        s:'Finland\'s educational system — which spends disproportionate resources on struggling students rather than gifted programmes — consistently produces the world\'s best outcomes. Grant argues that the systems producing the most "hidden potential" are those designed to raise the floor, not the ceiling. Talent is evenly distributed; opportunity is not.',
+        k:'Raise the floor, not the ceiling — the highest performers come from systems designed to support everyone.' },
+      { n:'Ch 8', t:'Diamonds in the Rough: How Organisations Develop Underrated Talent',
+        s:'Hiring processes systematically screen out people with unconventional backgrounds and non-linear trajectories — precisely the people most likely to bring original perspectives and resilience. Grant documents companies (like Unilever and the NBA) that redesigned their talent pipelines to look for learning agility and character skills rather than traditional credentials.',
+        k:'Hire for learning agility and character — credentials predict past performance, not future growth.' },
+      { n:'Ch 9', t:'Mining for Gold: How to Unlock Hidden Potential in Others',
+        s:'The most effective coaches and mentors focus on the quality of process, not outcomes. They create "scaffold scaffolding" — building the skills to learn how to learn — rather than teaching content directly. They also provide specific, actionable feedback on what to do differently, not just what went wrong. These are teachable behaviours.',
+        k:'Teach people how to learn, not just what to do — meta-learning skills compound for a lifetime.' },
     ]
   },
 ];
@@ -1335,7 +1555,7 @@ let activeFilter = 'all';
 function filter(cat, btn) {
   activeFilter = cat;
   document.querySelectorAll('.tab').forEach(b => { b.className = 'tab'; });
-  const cls = { all: 'on-all', habits: 'on-habits', health: 'on-health', comm: 'on-comm' };
+  const cls = { all: 'on-all', habits: 'on-habits', health: 'on-health', comm: 'on-comm', dev: 'on-dev' };
   btn.className = `tab ${cls[cat]}`;
   render();
 }
@@ -1345,9 +1565,11 @@ function render() {
   const habits = BOOKS.filter(b => b.category === 'habits');
   const health = BOOKS.filter(b => b.category === 'health');
   const comm   = BOOKS.filter(b => b.category === 'comm');
+  const dev    = BOOKS.filter(b => b.category === 'dev');
   const showHa = activeFilter === 'all' || activeFilter === 'habits';
   const showHe = activeFilter === 'all' || activeFilter === 'health';
   const showCo = activeFilter === 'all' || activeFilter === 'comm';
+  const showDe = activeFilter === 'all' || activeFilter === 'dev';
 
   const visible = BOOKS.filter(b => activeFilter === 'all' || b.category === activeFilter);
   const totalCh = visible.reduce((s, b) => s + b.chapters.length, 0);
@@ -1358,6 +1580,7 @@ function render() {
   if (showHa) html += section('habits', '⚡', 'Habits', habits);
   if (showHe) html += section('health', '🌿', 'Health', health);
   if (showCo) html += section('comm',   '🗣️', 'Communication', comm);
+  if (showDe) html += section('dev',    '🚀', 'Development', dev);
   document.getElementById('main').innerHTML = html;
 }
 
@@ -1374,7 +1597,7 @@ function section(cat, emoji, label, books) {
 }
 
 function card(b) {
-  const accentMap = { habits: 'var(--habits)', health: 'var(--health)', comm: 'var(--comm)' };
+  const accentMap = { habits: 'var(--habits)', health: 'var(--health)', comm: 'var(--comm)', dev: 'var(--dev)' };
   const accent = accentMap[b.category] || 'var(--blue)';
   return `
     <div class="book-card" style="--card-accent:${accent}" onclick="openBook('${b.id}')">
@@ -1402,10 +1625,10 @@ function card(b) {
 function openBook(id) {
   const b = BOOKS.find(x => x.id === id);
   if (!b) return;
-  const accentMap = { habits: 'var(--habits)', health: 'var(--health)', comm: 'var(--comm)' };
+  const accentMap = { habits: 'var(--habits)', health: 'var(--health)', comm: 'var(--comm)', dev: 'var(--dev)' };
   const accent = accentMap[b.category] || 'var(--blue)';
-  const bgMap  = { habits: 'rgba(245,158,11,.07)',  health: 'rgba(16,185,129,.07)',  comm: 'rgba(167,139,250,.07)' };
-  const bdMap  = { habits: 'rgba(245,158,11,.25)',  health: 'rgba(16,185,129,.25)',  comm: 'rgba(167,139,250,.25)' };
+  const bgMap  = { habits: 'rgba(245,158,11,.07)',  health: 'rgba(16,185,129,.07)',  comm: 'rgba(167,139,250,.07)',  dev: 'rgba(14,165,233,.07)' };
+  const bdMap  = { habits: 'rgba(245,158,11,.25)',  health: 'rgba(16,185,129,.25)',  comm: 'rgba(167,139,250,.25)',  dev: 'rgba(14,165,233,.25)' };
   const insightBg     = bgMap[b.category]  || 'rgba(59,130,246,.07)';
   const insightBorder = bdMap[b.category]  || 'rgba(59,130,246,.25)';
 
